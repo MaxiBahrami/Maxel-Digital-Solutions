@@ -4320,3 +4320,201 @@ a{
   }
   .mx-pr__track{scroll-behavior:auto!important}
 }
+
+
+/* =========================================================
+   PROCESS MICRO-VISUALS V15
+   Clearer product diagrams for each process stage.
+   ========================================================= */
+.mx-pr__visual-v2{
+  display:grid;
+  place-items:center;
+  padding:0;
+}
+.mx-pr__visual-v2 svg{
+  width:100%;
+  height:100%;
+  overflow:visible;
+}
+.mxpv-ring,
+.mxpv-link,
+.mxpv-bracket,
+.mxpv-browser,
+.mxpv-browser-bar,
+.mxpv-arrow,
+.mxpv-check{
+  fill:none;
+  stroke:#8e988f;
+  stroke-width:1.5;
+  vector-effect:non-scaling-stroke;
+}
+.mxpv-ring--outer{stroke:#b6beb5}
+.mxpv-core{
+  fill:#171a17;
+  transition:fill .28s ease;
+}
+.mxpv-node,
+.mxpv-rank,
+.mxpv-browser-dot{
+  fill:#838d84;
+  transition:fill .28s ease;
+}
+.mxpv-label,
+.mxpv-center-label{
+  fill:#747e75;
+  font:600 8px var(--mx-font-sans);
+  letter-spacing:1.15px;
+}
+.mxpv-center-label{
+  font-size:7px;
+  letter-spacing:1px;
+}
+.mxpv-row{
+  fill:#e3e7df;
+  stroke:#bdc5bb;
+  stroke-width:1;
+  transition:fill .28s ease,stroke .28s ease;
+}
+.mxpv-row--active{
+  fill:#d9ded5;
+}
+.mxpv-row-line{
+  fill:none;
+  stroke:#848e85;
+  stroke-width:2;
+  stroke-linecap:round;
+}
+.mxpv-browser{
+  fill:#f7f8f4;
+  stroke:#aab3a9;
+}
+.mxpv-browser-bar{stroke:#c1c8bf}
+.mxpv-sidebar{
+  fill:#dde2da;
+}
+.mxpv-component{
+  fill:#d5dbd2;
+}
+.mxpv-component--hero{
+  fill:#c8cfc5;
+}
+.mxpv-component--accent{
+  fill:#b8c39f;
+}
+.mxpv-metric{
+  fill:#e6e9e2;
+  stroke:#c2c9c0;
+  stroke-width:1;
+}
+.mxpv-metric--after{
+  fill:#dde5cf;
+}
+.mxpv-bar{
+  fill:#98a298;
+}
+.mxpv-bar--after{
+  fill:#6d7f5a;
+}
+.mxpv-label--accent{
+  fill:#687653;
+}
+.mxpv-check{
+  stroke:#697a52;
+  stroke-width:2.2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* Active/hover state: diagrams become dark with one precise Maxel accent. */
+.mx-pr__card:hover .mxpv-ring,
+.mx-pr__card.is-active .mxpv-ring,
+.mx-pr__card:hover .mxpv-link,
+.mx-pr__card.is-active .mxpv-link,
+.mx-pr__card:hover .mxpv-bracket,
+.mx-pr__card.is-active .mxpv-bracket,
+.mx-pr__card:hover .mxpv-browser,
+.mx-pr__card.is-active .mxpv-browser,
+.mx-pr__card:hover .mxpv-browser-bar,
+.mx-pr__card.is-active .mxpv-browser-bar,
+.mx-pr__card:hover .mxpv-arrow,
+.mx-pr__card.is-active .mxpv-arrow{
+  stroke:#58645b;
+}
+.mx-pr__card:hover .mxpv-core,
+.mx-pr__card.is-active .mxpv-core,
+.mx-pr__card:hover .mxpv-node:first-of-type,
+.mx-pr__card.is-active .mxpv-node:first-of-type{
+  fill:#d8ff7a;
+}
+.mx-pr__card:hover .mxpv-label,
+.mx-pr__card.is-active .mxpv-label,
+.mx-pr__card:hover .mxpv-center-label,
+.mx-pr__card.is-active .mxpv-center-label{
+  fill:#9da8a0;
+}
+.mx-pr__card:hover .mxpv-row,
+.mx-pr__card.is-active .mxpv-row{
+  fill:#252e28;
+  stroke:#47534a;
+}
+.mx-pr__card:hover .mxpv-row--active,
+.mx-pr__card.is-active .mxpv-row--active{
+  fill:#d8ff7a;
+  stroke:#a9ca54;
+}
+.mx-pr__card:hover .mxpv-row--active + .mxpv-rank,
+.mx-pr__card.is-active .mxpv-row--active + .mxpv-rank{
+  fill:#131713;
+}
+.mx-pr__card:hover .mxpv-row-line,
+.mx-pr__card.is-active .mxpv-row-line{
+  stroke:#77837a;
+}
+.mx-pr__card:hover .mxpv-browser,
+.mx-pr__card.is-active .mxpv-browser{
+  fill:#111612;
+}
+.mx-pr__card:hover .mxpv-sidebar,
+.mx-pr__card.is-active .mxpv-sidebar,
+.mx-pr__card:hover .mxpv-component,
+.mx-pr__card.is-active .mxpv-component,
+.mx-pr__card:hover .mxpv-component--hero,
+.mx-pr__card.is-active .mxpv-component--hero{
+  fill:#364139;
+}
+.mx-pr__card:hover .mxpv-component--accent,
+.mx-pr__card.is-active .mxpv-component--accent{
+  fill:#d8ff7a;
+}
+.mx-pr__card:hover .mxpv-metric,
+.mx-pr__card.is-active .mxpv-metric{
+  fill:#242d27;
+  stroke:#455148;
+}
+.mx-pr__card:hover .mxpv-metric--after,
+.mx-pr__card.is-active .mxpv-metric--after{
+  fill:#293522;
+}
+.mx-pr__card:hover .mxpv-bar,
+.mx-pr__card.is-active .mxpv-bar{
+  fill:#59655c;
+}
+.mx-pr__card:hover .mxpv-bar--after,
+.mx-pr__card.is-active .mxpv-bar--after{
+  fill:#d8ff7a;
+}
+.mx-pr__card:hover .mxpv-label--accent,
+.mx-pr__card.is-active .mxpv-label--accent{
+  fill:#d8ff7a;
+}
+.mx-pr__card:hover .mxpv-check,
+.mx-pr__card.is-active .mxpv-check{
+  stroke:#d8ff7a;
+}
+
+@media(max-width:640px){
+  .mx-pr__visual-v2 svg{
+    width:96%;
+    height:96%;
+  }
+}
