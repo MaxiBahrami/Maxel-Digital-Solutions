@@ -46,19 +46,21 @@ if(form){
 }
 
 
-const motionSections=document.querySelectorAll('.motion-section');
-if(motionSections.length){
-  if('IntersectionObserver' in window){
-    const motionObserver=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-          motionObserver.unobserve(entry.target);
-        }
-      });
-    },{threshold:.16});
-    motionSections.forEach(section=>motionObserver.observe(section));
-  }else{
-    motionSections.forEach(section=>section.classList.add('is-visible'));
+if(typeof document.querySelectorAll==='function'){
+  const motionSections=document.querySelectorAll('.motion-section');
+  if(motionSections.length){
+    if(typeof IntersectionObserver!=='undefined'){
+      const motionObserver=new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          if(entry.isIntersecting){
+            entry.target.classList.add('is-visible');
+            motionObserver.unobserve(entry.target);
+          }
+        });
+      },{threshold:.16});
+      motionSections.forEach(section=>motionObserver.observe(section));
+    }else{
+      motionSections.forEach(section=>section.classList.add('is-visible'));
+    }
   }
 }
