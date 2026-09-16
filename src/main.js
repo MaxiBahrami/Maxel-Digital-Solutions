@@ -104,3 +104,54 @@ if(typeof document.querySelectorAll==='function'){
     }
   });
 }
+
+
+if(typeof document.querySelectorAll==='function'){
+  const processRails=document.querySelectorAll('[data-process-rail]');
+  processRails.forEach(rail=>{
+    const track=rail.querySelector('[data-process-track]');
+    const cards=Array.from(rail.querySelectorAll('[data-process-step]'));
+    const prev=rail.querySelector('[data-process-prev]');
+    const next=rail.querySelector('[data-process-next]');
+    const dots=Array.from(rail.querySelectorAll('.mx-pr__dots span'));
+    if(!track||!cards.length)return;
+
+    let active=0;
+    const setActive=index=>{
+      active=Math.max(0,Math.min(cards.length-1,index));
+      cards.forEach((card,i)=>card.classList.toggle('is-active',i===active));
+      dots.forEach((dot,i)=>dot.classList.toggle('is-active',i===active));
+      if(prev)prev.disabled=active===0;
+      if(next)next.disabled=active===cards.length-1;
+    };
+
+    const goTo=index=>{
+      const card=cards[Math.max(0,Math.min(cards.length-1,index))];
+      if(card&&typeof card.scrollIntoView==='function'){
+        card.scrollIntoView({behavior:'smooth',block:'nearest',inline:'start'});
+      }
+      setActive(index);
+    };
+
+    cards.forEach((card,index)=>{
+      card.addEventListener('mouseenter',()=>setActive(index));
+      card.addEventListener('focusin',()=>setActive(index));
+    });
+    if(prev)prev.addEventListener('click',()=>goTo(active-1));
+    if(next)next.addEventListener('click',()=>goTo(active+1));
+
+    if(typeof IntersectionObserver!=='undefined'){
+      const observer=new IntersectionObserver(entries=>{
+        const visible=entries
+          .filter(entry=>entry.isIntersecting)
+          .sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+        if(visible.length){
+          const index=cards.indexOf(visible[0].target);
+          if(index>=0)setActive(index);
+        }
+      },{root:track,threshold:[.55,.75,.9]});
+      cards.forEach(card=>observer.observe(card));
+    }
+    setActive(0);
+  });
+}

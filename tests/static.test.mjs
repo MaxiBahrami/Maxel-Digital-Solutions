@@ -48,3 +48,14 @@ test('built site includes the unified Maxel typography system',async()=>{
  assert.match(css,/--mx-font-sans:-apple-system,BlinkMacSystemFont/);
  assert.match(css,/MAXEL TYPOGRAPHY SYSTEM V13/);
 });
+
+test('homepage uses the interactive connected process rail',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/data-process-rail/);
+ assert.match(home,/From direction<br>to delivery\./);
+ assert.match(home,/data-process-step="0"/);
+ assert.match(home,/data-process-step="3"/);
+ assert.match(home,/data-process-prev/);
+ assert.match(home,/data-process-next/);
+ assert.doesNotMatch(home,/How projects move forward\./);
+});
