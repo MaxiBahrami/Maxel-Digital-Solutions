@@ -207,13 +207,20 @@
           <span class="mx-pr__number">01</span>
           <span class="mx-pr__status">Discover</span>
         </div>
-        <div class="mx-pr__visual mx-pr__visual--understand" aria-hidden="true">
-          <span class="mx-pr__orbit mx-pr__orbit--a"></span>
-          <span class="mx-pr__orbit mx-pr__orbit--b"></span>
-          <span class="mx-pr__focus"></span>
-          <i class="mx-pr__point mx-pr__point--1"></i>
-          <i class="mx-pr__point mx-pr__point--2"></i>
-          <i class="mx-pr__point mx-pr__point--3"></i>
+        <div class="mx-pr__visual mx-pr__visual--understand mx-pr__visual-v2" aria-hidden="true">
+          <svg viewBox="0 0 260 150" role="presentation">
+            <circle class="mxpv-ring mxpv-ring--outer" cx="130" cy="76" r="43"></circle>
+            <circle class="mxpv-ring" cx="130" cy="76" r="23"></circle>
+            <circle class="mxpv-core" cx="130" cy="76" r="7"></circle>
+            <path class="mxpv-link" d="M94 52 L60 34 M166 52 L202 31 M98 100 L60 119"></path>
+            <circle class="mxpv-node" cx="57" cy="32" r="5"></circle>
+            <circle class="mxpv-node" cx="205" cy="29" r="5"></circle>
+            <circle class="mxpv-node" cx="57" cy="121" r="5"></circle>
+            <text class="mxpv-label" x="24" y="24">GOAL</text>
+            <text class="mxpv-label" x="199" y="18">USERS</text>
+            <text class="mxpv-label" x="20" y="140">CONTEXT</text>
+            <text class="mxpv-center-label" x="130" y="112" text-anchor="middle">FOCUS</text>
+          </svg>
         </div>
         <div class="mx-pr__copy">
           <h3>Understand</h3>
@@ -226,11 +233,21 @@
           <span class="mx-pr__number">02</span>
           <span class="mx-pr__status">Direction</span>
         </div>
-        <div class="mx-pr__visual mx-pr__visual--define" aria-hidden="true">
-          <span style="--w:88%"></span>
-          <span style="--w:68%"></span>
-          <span style="--w:48%"></span>
-          <i></i>
+        <div class="mx-pr__visual mx-pr__visual--define mx-pr__visual-v2" aria-hidden="true">
+          <svg viewBox="0 0 260 150" role="presentation">
+            <text class="mxpv-label" x="24" y="25">PRIORITY</text>
+            <rect class="mxpv-row mxpv-row--active" x="24" y="38" width="212" height="24" rx="7"></rect>
+            <circle class="mxpv-rank" cx="40" cy="50" r="5"></circle>
+            <path class="mxpv-row-line" d="M54 50 H140"></path>
+            <rect class="mxpv-row" x="24" y="70" width="178" height="22" rx="7"></rect>
+            <circle class="mxpv-rank" cx="40" cy="81" r="5"></circle>
+            <path class="mxpv-row-line" d="M54 81 H123"></path>
+            <rect class="mxpv-row" x="24" y="100" width="145" height="22" rx="7"></rect>
+            <circle class="mxpv-rank" cx="40" cy="111" r="5"></circle>
+            <path class="mxpv-row-line" d="M54 111 H108"></path>
+            <path class="mxpv-bracket" d="M220 72 V122 M212 72 H228 M212 122 H228"></path>
+            <text class="mxpv-label mxpv-label--right" x="236" y="101" text-anchor="end">SCOPE</text>
+          </svg>
         </div>
         <div class="mx-pr__copy">
           <h3>Define</h3>
@@ -243,12 +260,19 @@
           <span class="mx-pr__number">03</span>
           <span class="mx-pr__status">Production</span>
         </div>
-        <div class="mx-pr__visual mx-pr__visual--build" aria-hidden="true">
-          <span class="mx-pr__window">
-            <i></i><i></i><i></i>
-            <b></b>
-            <em></em>
-          </span>
+        <div class="mx-pr__visual mx-pr__visual--build mx-pr__visual-v2" aria-hidden="true">
+          <svg viewBox="0 0 260 150" role="presentation">
+            <rect class="mxpv-browser" x="23" y="21" width="214" height="108" rx="10"></rect>
+            <path class="mxpv-browser-bar" d="M23 45 H237"></path>
+            <circle class="mxpv-browser-dot" cx="38" cy="33" r="3"></circle>
+            <circle class="mxpv-browser-dot" cx="48" cy="33" r="3"></circle>
+            <circle class="mxpv-browser-dot" cx="58" cy="33" r="3"></circle>
+            <rect class="mxpv-sidebar" x="35" y="57" width="44" height="58" rx="5"></rect>
+            <rect class="mxpv-component mxpv-component--hero" x="90" y="57" width="132" height="24" rx="6"></rect>
+            <rect class="mxpv-component" x="90" y="89" width="61" height="26" rx="6"></rect>
+            <rect class="mxpv-component mxpv-component--accent" x="160" y="89" width="62" height="26" rx="6"></rect>
+            <text class="mxpv-label" x="92" y="73">INTERFACE</text>
+          </svg>
         </div>
         <div class="mx-pr__copy">
           <h3>Build</h3>
@@ -261,11 +285,20 @@
           <span class="mx-pr__number">04</span>
           <span class="mx-pr__status">Evolution</span>
         </div>
-        <div class="mx-pr__visual mx-pr__visual--improve" aria-hidden="true">
-          <svg viewBox="0 0 220 112" role="presentation">
-            <path class="mx-pr__grid" d="M10 24H210M10 56H210M10 88H210M55 10V102M110 10V102M165 10V102"></path>
-            <path class="mx-pr__line" d="M18 86 C54 82,62 67,88 70 S126 69,144 50 S177 40,202 22"></path>
-            <circle cx="202" cy="22" r="5"></circle>
+        <div class="mx-pr__visual mx-pr__visual--improve mx-pr__visual-v2" aria-hidden="true">
+          <svg viewBox="0 0 260 150" role="presentation">
+            <text class="mxpv-label" x="23" y="24">BEFORE</text>
+            <text class="mxpv-label mxpv-label--accent" x="176" y="24">AFTER</text>
+            <rect class="mxpv-metric" x="23" y="38" width="74" height="79" rx="8"></rect>
+            <rect class="mxpv-bar" x="36" y="86" width="11" height="18" rx="3"></rect>
+            <rect class="mxpv-bar" x="53" y="70" width="11" height="34" rx="3"></rect>
+            <rect class="mxpv-bar" x="70" y="77" width="11" height="27" rx="3"></rect>
+            <path class="mxpv-arrow" d="M111 78 H148 M139 68 L149 78 L139 88"></path>
+            <rect class="mxpv-metric mxpv-metric--after" x="163" y="38" width="74" height="79" rx="8"></rect>
+            <rect class="mxpv-bar mxpv-bar--after" x="176" y="74" width="11" height="30" rx="3"></rect>
+            <rect class="mxpv-bar mxpv-bar--after" x="193" y="56" width="11" height="48" rx="3"></rect>
+            <rect class="mxpv-bar mxpv-bar--after" x="210" y="43" width="11" height="61" rx="3"></rect>
+            <path class="mxpv-check" d="M184 128 L192 136 L211 118"></path>
           </svg>
         </div>
         <div class="mx-pr__copy">
