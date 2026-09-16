@@ -42,3 +42,9 @@ test('home and services use the scroll-driven service system',async()=>{
   assert.doesNotMatch(html,/services-showcase/,name);
  }
 });
+
+test('built site includes the unified Maxel typography system',async()=>{
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/--mx-font-sans:-apple-system,BlinkMacSystemFont/);
+ assert.match(css,/MAXEL TYPOGRAPHY SYSTEM V13/);
+});
