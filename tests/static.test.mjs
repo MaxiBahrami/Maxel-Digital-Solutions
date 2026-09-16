@@ -75,3 +75,16 @@ test('services sticky visual is not trapped by section overflow',async()=>{
  assert.match(css,/\.mx-ss\{\s*position:relative;\s*overflow:visible;/);
  assert.match(css,/\.mx-ss__intro\{\s*overflow:clip;/);
 });
+
+test('homepage hero uses the interactive Maxel system lab',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/data-system-hero/);
+ assert.match(home,/MAXEL\.SYSTEM \/ v1\.0/);
+ assert.match(home,/data-hero-state="strategy"/);
+ assert.match(home,/data-hero-state="experience"/);
+ assert.match(home,/data-hero-state="technology"/);
+ assert.match(home,/data-hero-tab="production"/);
+ assert.match(home,/data-hero-terminal/);
+ assert.doesNotMatch(home,/hero-image-card/);
+ assert.doesNotMatch(home,/hero-proof/);
+});
