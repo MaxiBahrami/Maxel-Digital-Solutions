@@ -1,4 +1,4 @@
-<section class="mx-hero" data-system-hero>
+<section class="mx-hero mx-hero--v19" data-system-hero>
   <div class="mx-hero__copy">
     <span class="eyebrow">INDEPENDENT DIGITAL STUDIO · SWEDEN / WORLDWIDE</span>
     <h1>Digital solutions built for real business needs.</h1>
@@ -9,58 +9,70 @@
       <a href="/services/" class="mx-hero__secondary">Explore capabilities <span aria-hidden="true">→</span></a>
     </div>
 
-    <div class="mx-hero__signal" aria-label="Maxel working model">
-      <span>Strategy</span>
+    <div class="mx-hero__story" aria-label="Maxel delivery model">
+      <span>BUSINESS NEED</span>
       <i aria-hidden="true"></i>
-      <span>Experience</span>
-      <i aria-hidden="true"></i>
-      <span>Technology</span>
-      <i aria-hidden="true"></i>
-      <span>Production</span>
+      <strong>WORKING SYSTEM</strong>
     </div>
   </div>
 
-  <div class="mx-lab" data-hero-lab data-state="strategy">
+  <div class="mx-lab mx-lab--v19" data-hero-lab data-state="strategy">
     <div class="mx-lab__top">
-      <span>MAXEL.SYSTEM / v1.0</span>
-      <span class="mx-lab__status"><i></i> operational</span>
+      <span>MAXEL.SYSTEM / LIVE MODEL</span>
+      <span class="mx-lab__status"><i></i> <b data-hero-status>mapping direction</b></span>
+    </div>
+
+    <div class="mx-lab__sequence" aria-label="System build sequence">
+      <button type="button" class="is-active" data-hero-tab="strategy"><b>01</b><span>Understand</span></button>
+      <button type="button" data-hero-tab="experience"><b>02</b><span>Shape</span></button>
+      <button type="button" data-hero-tab="technology"><b>03</b><span>Connect</span></button>
+      <button type="button" data-hero-tab="production"><b>04</b><span>Ship</span></button>
+      <i class="mx-lab__sequenceProgress" aria-hidden="true"><b data-hero-progress></b></i>
     </div>
 
     <div class="mx-lab__canvas">
       <svg class="mx-lab__links" viewBox="0 0 620 430" role="presentation" aria-hidden="true">
-        <path d="M106 217 C164 217,184 126,248 126"></path>
-        <path d="M106 217 C164 217,184 217,248 217"></path>
-        <path d="M106 217 C164 217,184 308,248 308"></path>
-        <path d="M372 126 C430 126,444 217,505 217"></path>
-        <path d="M372 217 H505"></path>
-        <path d="M372 308 C430 308,444 217,505 217"></path>
+        <defs>
+          <linearGradient id="mxFlowGradient" x1="0" x2="1">
+            <stop offset="0%" stop-color="#536059"></stop>
+            <stop offset="58%" stop-color="#d8ff7a"></stop>
+            <stop offset="100%" stop-color="#536059"></stop>
+          </linearGradient>
+        </defs>
+        <path class="mx-lab__path mx-lab__path--strategy" d="M106 217 C164 217,184 126,248 126"></path>
+        <path class="mx-lab__path mx-lab__path--experience" d="M106 217 C164 217,184 217,248 217"></path>
+        <path class="mx-lab__path mx-lab__path--technology" d="M106 217 C164 217,184 308,248 308"></path>
+        <path class="mx-lab__path mx-lab__path--out-a" d="M372 126 C430 126,444 217,505 217"></path>
+        <path class="mx-lab__path mx-lab__path--out-b" d="M372 217 H505"></path>
+        <path class="mx-lab__path mx-lab__path--out-c" d="M372 308 C430 308,444 217,505 217"></path>
       </svg>
 
       <div class="mx-lab__source">
         <small>INPUT</small>
         <strong>Business<br>need</strong>
+        <span data-hero-input>clarify</span>
       </div>
 
       <button type="button" class="mx-lab__node mx-lab__node--strategy is-active" data-hero-state="strategy">
-        <small>01</small><strong>Strategy</strong>
+        <small>01</small><strong>Strategy</strong><span>Goal · users · scope</span>
       </button>
       <button type="button" class="mx-lab__node mx-lab__node--experience" data-hero-state="experience">
-        <small>02</small><strong>Experience</strong>
+        <small>02</small><strong>Experience</strong><span>Flows · interface · content</span>
       </button>
       <button type="button" class="mx-lab__node mx-lab__node--technology" data-hero-state="technology">
-        <small>03</small><strong>Technology</strong>
+        <small>03</small><strong>Technology</strong><span>App · services · data</span>
       </button>
 
       <div class="mx-lab__output">
         <small>OUTPUT</small>
         <strong>Digital<br>system</strong>
-        <span>PRODUCTION</span>
+        <span data-hero-output>ASSEMBLING</span>
       </div>
 
       <div class="mx-lab__detail" aria-live="polite">
         <div class="mx-lab__detailHead">
-          <span data-hero-index>01 / STRATEGY</span>
-          <span>system model</span>
+          <span data-hero-index>01 / UNDERSTAND</span>
+          <span data-hero-message>Turn the business need into a clear direction.</span>
         </div>
 
         <div class="mx-lab__state mx-lab__state--strategy">
@@ -86,26 +98,26 @@
           <div class="mx-lab__stack">
             <span>INTERFACE</span><i>→</i><span>SERVICE</span><i>→</i><span>DATA</span>
           </div>
-          <div class="mx-lab__buildline"><span>main</span><b>✓ build</b><b>✓ test</b><b>✓ deploy</b></div>
+          <div class="mx-lab__buildline"><span>main</span><b>✓ build</b><b>✓ test</b><b>✓ connect</b></div>
         </div>
 
         <div class="mx-lab__state mx-lab__state--production">
           <div class="mx-lab__production">
             <span class="mx-lab__productionMark">M</span>
-            <div><small>CONNECTED OUTPUT</small><strong>Ready to evolve.</strong></div>
+            <div><small>CONNECTED OUTPUT</small><strong>Ready to ship. Ready to evolve.</strong></div>
           </div>
         </div>
+      </div>
+
+      <div class="mx-lab__telemetry" aria-hidden="true">
+        <span><small>FLOW</small><b data-hero-flow>direction</b></span>
+        <span><small>MODE</small><b data-hero-mode>discover</b></span>
+        <span><small>STATE</small><b data-hero-state-label>active</b></span>
       </div>
     </div>
 
     <div class="mx-lab__bottom">
-      <div class="mx-lab__tabs" aria-label="Explore Maxel system model">
-        <button type="button" class="is-active" data-hero-tab="strategy">01 Strategy</button>
-        <button type="button" data-hero-tab="experience">02 Experience</button>
-        <button type="button" data-hero-tab="technology">03 Technology</button>
-        <button type="button" data-hero-tab="production">04 Production</button>
-      </div>
-
+      <span class="mx-lab__narrative" data-hero-narrative>01 — Understand the problem before choosing the solution.</span>
       <button type="button" class="mx-lab__terminalTrigger" data-hero-terminal aria-expanded="false">
         <span>&gt; inspect system</span><b aria-hidden="true">_</b>
       </button>
