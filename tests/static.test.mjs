@@ -79,7 +79,7 @@ test('services sticky visual is not trapped by section overflow',async()=>{
 test('homepage hero uses the interactive Maxel system lab',async()=>{
  const home=await readFile(join(dist,'index.html'),'utf8');
  assert.match(home,/data-system-hero/);
- assert.match(home,/MAXEL\.SYSTEM \/ v1\.0/);
+ assert.match(home,/MAXEL\.SYSTEM \/ LIVE MODEL/);
  assert.match(home,/data-hero-state="strategy"/);
  assert.match(home,/data-hero-state="experience"/);
  assert.match(home,/data-hero-state="technology"/);
