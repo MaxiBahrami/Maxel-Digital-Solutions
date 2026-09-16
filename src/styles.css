@@ -3553,7 +3553,10 @@ img,svg{max-width:100%}
    ========================================================= */
 .mx-ss{
   position:relative;
-  overflow:hidden;
+  overflow:visible;
+}
+.mx-ss__intro{
+  overflow:clip;
 }
 .mx-ss__intro{
   position:relative;

@@ -69,3 +69,9 @@ test('process rail uses the clearer v2 micro-visuals',async()=>{
  assert.match(home,/BEFORE/);
  assert.match(home,/AFTER/);
 });
+
+test('services sticky visual is not trapped by section overflow',async()=>{
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/\.mx-ss\{\s*position:relative;\s*overflow:visible;/);
+ assert.match(css,/\.mx-ss__intro\{\s*overflow:clip;/);
+});
