@@ -12,7 +12,7 @@ test('PostgreSQL schema and HTTP contact/admin workflow',async()=>{
   const pool={async query(sql,values){if(!values&&sql.includes(';')){const results=await db.exec(sql);const r=results.at(-1);return {rows:r?.rows??[],rowCount:r?.affectedRows??0};}const r=await db.query(sql,values);return {rows:r.rows,rowCount:r.affectedRows??r.rows.length};},async connect(){return {...pool,release(){}};}};
   const config=readConfig({DATABASE_URL:'postgres://test',ADMIN_PASSWORD:'local-test-password-12345',SESSION_SECRET:'local-test-secret-1234567890123456789',APP_ORIGIN:'http://127.0.0.1:8080'});
   await migrate(pool);await migrate(pool);
-  assert.equal((await pool.query('SELECT count(*)::int AS n FROM schema_migrations')).rows[0].n,1);
+  assert.equal((await pool.query('SELECT count(*)::int AS n FROM schema_migrations')).rows[0].n,2);
   const app=createApp({pool,config});await new Promise(r=>app.listen(0,'127.0.0.1',r));config.origin='http://127.0.0.1:'+app.address().port;
   const send=(path,{method='GET',body,cookie,origin=config.origin}={})=>fetch(config.origin+path,{method,headers:{'Content-Type':'application/json',Origin:origin,...(cookie?{Cookie:cookie}:{})},body:body?JSON.stringify(body):undefined,redirect:'manual'});
   const inquiry=()=>({id:randomUUID(),name:'Test Person',email:'test@example.test',company:'Example',service:'websites',budget:'Not decided yet',timeline:'Flexible / exploring',message:'A PostgreSQL-backed project inquiry for testing.',consent:true,website:''});
@@ -20,6 +20,8 @@ test('PostgreSQL schema and HTTP contact/admin workflow',async()=>{
     assert.equal((await send('/api/health')).status,200);
     assert.equal((await send('/api/admin/inquiries')).status,401);
     let p=inquiry();
+    assert.equal((await send('/api/inquiries',{method:'POST',body:{...inquiry(),id:randomUUID(),service:'digital-strategy'}})).status,201);
+    await pool.query("DELETE FROM inquiries WHERE service='digital-strategy'");
     assert.equal((await send('/api/inquiries',{method:'POST',body:p,origin:'https://untrusted.test'})).status,403);
     assert.equal((await send('/api/inquiries',{method:'POST',body:{...p,consent:false}})).status,400);
     assert.equal((await send('/api/inquiries',{method:'POST',body:{...p,email:'invalid'}})).status,400);

@@ -2,61 +2,67 @@
   {
     "source": "home.html",
     "path": "/",
-    "title": "Maxel Digital Solutions — Strategy, design & development",
-    "description": "Websites, digital products and connected experiences for businesses and founders. Work directly with Maximilian Bahrami from strategy through delivery."
+    "title": "Maxel Digital Solutions — Digital strategy, design & technology",
+    "description": "Digital strategy, websites, products and connected systems for businesses and founders. Plan, design and build with one independent digital studio."
   },
   {
     "source": "services.html",
     "path": "/services/",
-    "title": "Services | Maxel Digital Solutions",
-    "description": "Explore website design, digital product development and improvements to existing websites and systems."
+    "title": "Digital services | Maxel Digital Solutions",
+    "description": "Digital strategy, websites and commerce, digital products and systems, integrations and continuous improvement."
+  },
+  {
+    "source": "services--digital-strategy.html",
+    "path": "/services/digital-strategy/",
+    "title": "Digital strategy | Maxel Digital Solutions",
+    "description": "Turn business goals into a practical digital direction, priorities and roadmap before committing to design or development."
   },
   {
     "source": "services--websites.html",
     "path": "/services/websites/",
-    "title": "Websites & e-commerce | Maxel Digital Solutions",
-    "description": "A considered website that explains your offer, builds confidence and makes the next step easy."
+    "title": "Websites & commerce | Maxel Digital Solutions",
+    "description": "Professional websites and commerce experiences combining structure, interface design, development, integrations and technical foundations."
   },
   {
     "source": "services--digital-products.html",
     "path": "/services/digital-products/",
-    "title": "Digital products | Maxel Digital Solutions",
-    "description": "From early concepts to web applications. Bring the design and development together around the features that matter first."
+    "title": "Digital products & systems | Maxel Digital Solutions",
+    "description": "Plan, design and develop portals, platforms, web applications and connected digital systems around real user and business needs."
   },
   {
     "source": "services--digital-improvements.html",
     "path": "/services/digital-improvements/",
-    "title": "Digital improvements | Maxel Digital Solutions",
-    "description": "Find the friction in your website or workflow, then make practical, prioritised improvements."
+    "title": "Digital improvements & integrations | Maxel Digital Solutions",
+    "description": "Improve existing digital experiences, performance, workflows, integrations and technical foundations with a focused plan."
   },
   {
     "source": "work.html",
     "path": "/work/",
     "title": "Selected work | Maxel Digital Solutions",
-    "description": "Explore EDUFY, an ongoing product design and full-stack development project by Maximilian Bahrami."
+    "description": "Selected digital product and development work showing how strategy, interface design and technology connect in practice."
   },
   {
     "source": "work--edufy.html",
     "path": "/work/edufy/",
-    "title": "EDUFY — Project | Maxel Digital Solutions",
-    "description": "An education platform in development. Explore the product idea, Maximilian’s role and the work across design, application development and administration."
+    "title": "EDUFY case study | Maxel Digital Solutions",
+    "description": "EDUFY is an education platform in active development, spanning product direction, interface design, account flows, administration and full-stack development."
   },
   {
     "source": "about.html",
     "path": "/about/",
-    "title": "The studio | Maxel Digital Solutions",
-    "description": "Meet Maximilian Bahrami, founder of Maxel Digital Solutions. Independent digital strategy, design and development."
+    "title": "About Maxel Digital Solutions",
+    "description": "An independent digital studio led by Maximilian Bahrami, connecting strategy, design, development and systems thinking in one working relationship."
   },
   {
     "source": "contact.html",
     "path": "/contact/",
     "title": "Start a project | Maxel Digital Solutions",
-    "description": "Prepare a project brief for Maxel Digital Solutions. Copy or download your requirements and contact Maximilian to start a conversation."
+    "description": "Tell Maxel Digital Solutions what you want to build, improve or clarify and start a direct conversation about scope, timing and next steps."
   },
   {
     "source": "privacy.html",
     "path": "/privacy/",
     "title": "Data & privacy | Maxel Digital Solutions",
-    "description": "How the browser-based project brief helper handles your information. No contact database or automatic submissions."
+    "description": "How Maxel Digital Solutions handles project briefs, inquiries and website data."
   }
 ]
