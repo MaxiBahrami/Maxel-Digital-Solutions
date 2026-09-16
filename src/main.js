@@ -44,3 +44,21 @@ if(form){
   form.addEventListener('input',()=>{if(!result.hidden){result.hidden=true;status.textContent='';}});
   document.getElementById('prepare-brief').disabled=false;
 }
+
+
+const motionSections=document.querySelectorAll('.motion-section');
+if(motionSections.length){
+  if('IntersectionObserver' in window){
+    const motionObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          motionObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:.16});
+    motionSections.forEach(section=>motionObserver.observe(section));
+  }else{
+    motionSections.forEach(section=>section.classList.add('is-visible'));
+  }
+}
