@@ -165,63 +165,137 @@ if(typeof document.querySelectorAll==='function'){
     if(!lab)return;
 
     const states=['strategy','experience','technology','production'];
-    const labels={
-      strategy:'01 / STRATEGY',
-      experience:'02 / EXPERIENCE',
-      technology:'03 / TECHNOLOGY',
-      production:'04 / PRODUCTION'
-    };
-    const nodes=Array.from(hero.querySelectorAll('[data-hero-state]'));
-    const tabs=Array.from(hero.querySelectorAll('[data-hero-tab]'));
-    const indexLabel=hero.querySelector('[data-hero-index]');
-    const terminalButton=hero.querySelector('[data-hero-terminal]');
-    const terminalPanel=hero.querySelector('[data-hero-terminal-panel]');
-    let active=0;
-    let timer=null;
-    let paused=false;
-
-    const setState=state=>{
-      const index=states.indexOf(state);
-      if(index<0)return;
-      active=index;
-      lab.dataset.state=state;
-      nodes.forEach(node=>node.classList.toggle('is-active',node.dataset.heroState===state));
-      tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.heroTab===state));
-      if(indexLabel)indexLabel.textContent=labels[state];
-    };
-
-    const restart=()=>{
-      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
-      if(typeof setInterval==='function'&&!paused){
-        timer=setInterval(()=>setState(states[(active+1)%states.length]),3200);
+    const content={
+      strategy:{
+        index:'01 / UNDERSTAND',
+        status:'mapping direction',
+        message:'Turn the business need into a clear direction.',
+        input:'clarify',
+        output:'ASSEMBLING',
+        flow:'direction',
+        mode:'discover',
+        state:'active',
+        narrative:'01 — Understand the problem before choosing the solution.'
+      },
+      experience:{
+        index:'02 / SHAPE',
+        status:'shaping experience',
+        message:'Translate direction into flows people can actually use.',
+        input:'structure',
+        output:'ASSEMBLING',
+        flow:'experience',
+        mode:'design',
+        state:'active',
+        narrative:'02 — Shape the experience around users, tasks and decisions.'
+      },
+      technology:{
+        index:'03 / CONNECT',
+        status:'connecting system',
+        message:'Connect interface, services and data into one system.',
+        input:'connect',
+        output:'VALIDATING',
+        flow:'technology',
+        mode:'engineer',
+        state:'active',
+        narrative:'03 — Engineer the parts so the product works as one system.'
+      },
+      production:{
+        index:'04 / SHIP',
+        status:'system operational',
+        message:'Ship a working system with room to improve.',
+        input:'resolved',
+        output:'PRODUCTION',
+        flow:'complete',
+        mode:'ship',
+        state:'live',
+        narrative:'04 — Put the system into production, then keep improving it.'
       }
     };
 
-    nodes.forEach(node=>node.addEventListener('click',()=>{
-      setState(node.dataset.heroState);
-      restart();
-    }));
-    tabs.forEach(tab=>tab.addEventListener('click',()=>{
-      setState(tab.dataset.heroTab);
-      restart();
-    }));
+    const nodes=Array.from(hero.querySelectorAll('[data-hero-state]'));
+    const tabs=Array.from(hero.querySelectorAll('[data-hero-tab]'));
+    const indexLabel=hero.querySelector('[data-hero-index]');
+    const status=hero.querySelector('[data-hero-status]');
+    const message=hero.querySelector('[data-hero-message]');
+    const input=hero.querySelector('[data-hero-input]');
+    const output=hero.querySelector('[data-hero-output]');
+    const narrative=hero.querySelector('[data-hero-narrative]');
+    const flow=hero.querySelector('[data-hero-flow]');
+    const mode=hero.querySelector('[data-hero-mode]');
+    const stateLabel=hero.querySelector('[data-hero-state-label]');
+    const progress=hero.querySelector('[data-hero-progress]');
+    const terminalButton=hero.querySelector('[data-hero-terminal]');
+    const terminalPanel=hero.querySelector('[data-hero-terminal-panel]');
+
+    let active=0;
+    let timer=null;
+    let paused=false;
+    const durations=[3900,3900,4200,5000];
+
+    const setState=state=>{
+      const idx=states.indexOf(state);
+      if(idx<0)return;
+      active=idx;
+      const data=content[state];
+      lab.dataset.state=state;
+      nodes.forEach(node=>node.classList.toggle('is-active',node.dataset.heroState===state));
+      tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.heroTab===state));
+      if(indexLabel)indexLabel.textContent=data.index;
+      if(status)status.textContent=data.status;
+      if(message)message.textContent=data.message;
+      if(input)input.textContent=data.input;
+      if(output)output.textContent=data.output;
+      if(narrative)narrative.textContent=data.narrative;
+      if(flow)flow.textContent=data.flow;
+      if(mode)mode.textContent=data.mode;
+      if(stateLabel)stateLabel.textContent=data.state;
+      if(progress){
+        progress.style.animation='none';
+        progress.offsetHeight;
+        progress.style.animation='';
+        progress.style.setProperty('--mx-hero-duration',durations[idx]+'ms');
+      }
+    };
+
+    const stop=()=>{
+      if(typeof clearTimeout==='function'&&timer)clearTimeout(timer);
+      timer=null;
+    };
+
+    const schedule=()=>{
+      stop();
+      if(paused||typeof setTimeout!=='function')return;
+      timer=setTimeout(()=>{
+        const next=(active+1)%states.length;
+        setState(states[next]);
+        schedule();
+      },durations[active]);
+    };
+
+    const choose=state=>{
+      setState(state);
+      schedule();
+    };
+
+    nodes.forEach(node=>node.addEventListener('click',()=>choose(node.dataset.heroState)));
+    tabs.forEach(tab=>tab.addEventListener('click',()=>choose(tab.dataset.heroTab)));
 
     lab.addEventListener('mouseenter',()=>{
       paused=true;
-      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+      stop();
     });
     lab.addEventListener('mouseleave',()=>{
       paused=false;
-      restart();
+      schedule();
     });
     lab.addEventListener('focusin',()=>{
       paused=true;
-      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+      stop();
     });
     lab.addEventListener('focusout',event=>{
       if(!lab.contains(event.relatedTarget)){
         paused=false;
-        restart();
+        schedule();
       }
     });
 
@@ -231,16 +305,13 @@ if(typeof document.querySelectorAll==='function'){
         terminalPanel.hidden=!opening;
         terminalButton.setAttribute('aria-expanded',String(opening));
         paused=opening;
-        if(opening){
-          if(typeof clearInterval==='function'&&timer)clearInterval(timer);
-        }else{
-          restart();
-        }
+        if(opening)stop();
+        else schedule();
       });
     }
 
     setState(states[0]);
-    restart();
+    schedule();
   });
 }
 
