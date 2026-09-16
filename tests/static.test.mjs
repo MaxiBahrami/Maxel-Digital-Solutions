@@ -103,3 +103,17 @@ test('homepage master direction connects work studio launch and motion systems',
  assert.match(css,/MAXEL HOMEPAGE MASTER DIRECTION V18/);
  assert.match(css,/--mx-page-progress/);
 });
+
+test('hero narrative explains the complete Maxel system journey',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/mx-hero--v19/);
+ assert.match(home,/BUSINESS NEED/);
+ assert.match(home,/WORKING SYSTEM/);
+ assert.match(home,/01[\s\S]*Understand/);
+ assert.match(home,/02[\s\S]*Shape/);
+ assert.match(home,/03[\s\S]*Connect/);
+ assert.match(home,/04[\s\S]*Ship/);
+ assert.match(home,/data-hero-message/);
+ assert.match(home,/data-hero-narrative/);
+ assert.match(home,/data-hero-telemetry|mx-lab__telemetry/);
+});
