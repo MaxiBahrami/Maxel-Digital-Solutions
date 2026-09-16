@@ -59,3 +59,13 @@ test('homepage uses the interactive connected process rail',async()=>{
  assert.match(home,/data-process-next/);
  assert.doesNotMatch(home,/How projects move forward\./);
 });
+
+test('process rail uses the clearer v2 micro-visuals',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.equal((home.match(/mx-pr__visual-v2/g)||[]).length,4);
+ assert.match(home,/GOAL/);
+ assert.match(home,/PRIORITY/);
+ assert.match(home,/INTERFACE/);
+ assert.match(home,/BEFORE/);
+ assert.match(home,/AFTER/);
+});
