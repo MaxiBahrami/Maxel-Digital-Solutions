@@ -155,3 +155,90 @@ if(typeof document.querySelectorAll==='function'){
     setActive(0);
   });
 }
+
+
+if(typeof document.querySelectorAll==='function'){
+  const systemHeroes=document.querySelectorAll('[data-system-hero]');
+  systemHeroes.forEach(hero=>{
+    const lab=hero.querySelector('[data-hero-lab]');
+    if(!lab)return;
+
+    const states=['strategy','experience','technology','production'];
+    const labels={
+      strategy:'01 / STRATEGY',
+      experience:'02 / EXPERIENCE',
+      technology:'03 / TECHNOLOGY',
+      production:'04 / PRODUCTION'
+    };
+    const nodes=Array.from(hero.querySelectorAll('[data-hero-state]'));
+    const tabs=Array.from(hero.querySelectorAll('[data-hero-tab]'));
+    const indexLabel=hero.querySelector('[data-hero-index]');
+    const terminalButton=hero.querySelector('[data-hero-terminal]');
+    const terminalPanel=hero.querySelector('[data-hero-terminal-panel]');
+    let active=0;
+    let timer=null;
+    let paused=false;
+
+    const setState=state=>{
+      const index=states.indexOf(state);
+      if(index<0)return;
+      active=index;
+      lab.dataset.state=state;
+      nodes.forEach(node=>node.classList.toggle('is-active',node.dataset.heroState===state));
+      tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.heroTab===state));
+      if(indexLabel)indexLabel.textContent=labels[state];
+    };
+
+    const restart=()=>{
+      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+      if(typeof setInterval==='function'&&!paused){
+        timer=setInterval(()=>setState(states[(active+1)%states.length]),3200);
+      }
+    };
+
+    nodes.forEach(node=>node.addEventListener('click',()=>{
+      setState(node.dataset.heroState);
+      restart();
+    }));
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{
+      setState(tab.dataset.heroTab);
+      restart();
+    }));
+
+    lab.addEventListener('mouseenter',()=>{
+      paused=true;
+      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+    });
+    lab.addEventListener('mouseleave',()=>{
+      paused=false;
+      restart();
+    });
+    lab.addEventListener('focusin',()=>{
+      paused=true;
+      if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+    });
+    lab.addEventListener('focusout',event=>{
+      if(!lab.contains(event.relatedTarget)){
+        paused=false;
+        restart();
+      }
+    });
+
+    if(terminalButton&&terminalPanel){
+      terminalButton.addEventListener('click',()=>{
+        const opening=terminalPanel.hidden;
+        terminalPanel.hidden=!opening;
+        terminalButton.setAttribute('aria-expanded',String(opening));
+        paused=opening;
+        if(opening){
+          if(typeof clearInterval==='function'&&timer)clearInterval(timer);
+        }else{
+          restart();
+        }
+      });
+    }
+
+    setState(states[0]);
+    restart();
+  });
+}
