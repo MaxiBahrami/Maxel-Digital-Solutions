@@ -64,3 +64,43 @@ if(typeof document.querySelectorAll==='function'){
     }
   }
 }
+
+
+if(typeof document.querySelectorAll==='function'){
+  const serviceSystems=document.querySelectorAll('[data-service-system]');
+  serviceSystems.forEach(system=>{
+    const rows=Array.from(system.querySelectorAll('.mx-ss__item'));
+    const visual=system.querySelector('.mx-ss__visual');
+    if(!rows.length||!visual)return;
+
+    const visualIndex=visual.querySelector('[data-service-index]');
+    const visualKicker=visual.querySelector('[data-service-kicker]');
+    const visualTitle=visual.querySelector('[data-service-title]');
+
+    const activate=row=>{
+      rows.forEach(item=>item.classList.toggle('is-active',item===row));
+      visual.dataset.state=row.dataset.state;
+      if(visualIndex)visualIndex.textContent=(row.dataset.index||'01')+' / 04';
+      if(visualKicker)visualKicker.textContent=row.dataset.kicker||'';
+      if(visualTitle)visualTitle.textContent=row.dataset.title||'';
+    };
+
+    rows.forEach(row=>{
+      row.addEventListener('mouseenter',()=>activate(row));
+      row.addEventListener('focusin',()=>activate(row));
+    });
+
+    if(typeof IntersectionObserver!=='undefined'){
+      const observer=new IntersectionObserver(entries=>{
+        const visible=entries
+          .filter(entry=>entry.isIntersecting)
+          .sort((a,b)=>b.intersectionRatio-a.intersectionRatio);
+        if(visible.length)activate(visible[0].target);
+      },{
+        threshold:[.35,.55,.75],
+        rootMargin:'-18% 0px -38% 0px'
+      });
+      rows.forEach(row=>observer.observe(row));
+    }
+  });
+}
