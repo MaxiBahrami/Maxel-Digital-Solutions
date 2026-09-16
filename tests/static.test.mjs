@@ -79,7 +79,7 @@ test('services sticky visual is not trapped by section overflow',async()=>{
 test('homepage hero uses the interactive Maxel system lab',async()=>{
  const home=await readFile(join(dist,'index.html'),'utf8');
  assert.match(home,/data-system-hero/);
- assert.match(home,/MAXEL\.SYSTEM \/ v1\.0/);
+ assert.match(home,/MAXEL\.SYSTEM \/ LIVE MODEL/);
  assert.match(home,/data-hero-state="strategy"/);
  assert.match(home,/data-hero-state="experience"/);
  assert.match(home,/data-hero-state="technology"/);
@@ -102,4 +102,18 @@ test('homepage master direction connects work studio launch and motion systems',
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
  assert.match(css,/MAXEL HOMEPAGE MASTER DIRECTION V18/);
  assert.match(css,/--mx-page-progress/);
+});
+
+test('hero narrative explains the complete Maxel system journey',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/mx-hero--v19/);
+ assert.match(home,/BUSINESS NEED/);
+ assert.match(home,/WORKING SYSTEM/);
+ assert.match(home,/01[\s\S]*Understand/);
+ assert.match(home,/02[\s\S]*Shape/);
+ assert.match(home,/03[\s\S]*Connect/);
+ assert.match(home,/04[\s\S]*Ship/);
+ assert.match(home,/data-hero-message/);
+ assert.match(home,/data-hero-narrative/);
+ assert.match(home,/data-hero-telemetry|mx-lab__telemetry/);
 });
