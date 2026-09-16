@@ -1371,3 +1371,122 @@ p{max-width:70ch}
   .hero-image-card{min-height:300px}
   .hero-image-card img{height:300px}
 }
+
+
+/* Service card cleanup — remove decorative placeholder motifs */
+.premium-service-grid-clean{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.premium-service-grid-clean .clean-service-card{
+  grid-column:auto;
+  min-height:280px;
+  padding:26px;
+  background:#f8f9f5;
+  color:#171b17;
+  border-color:#d4d9d0;
+  border-radius:16px;
+}
+.premium-service-grid-clean .clean-service-card:hover{
+  background:#ffffff;
+  border-color:#aeb8ac;
+  box-shadow:0 14px 34px rgba(25,34,27,.07);
+}
+.premium-service-grid-clean .premium-card-top{
+  color:#747d74;
+}
+.clean-service-icon{
+  width:44px;
+  height:44px;
+  margin:28px 0 34px;
+  display:grid;
+  place-items:center;
+  border:1px solid #c9d0c7;
+  border-radius:12px;
+  background:#eef2e9;
+  color:#273026;
+}
+.clean-service-icon svg{
+  width:23px;
+  height:23px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.premium-service-grid-clean .premium-card-copy{
+  margin-top:0;
+}
+.premium-service-grid-clean .premium-card-copy h3{
+  font-size:clamp(27px,2.6vw,38px);
+  line-height:1.05;
+  max-width:520px;
+}
+.premium-service-grid-clean .premium-card-copy p{
+  margin:12px 0 24px;
+  color:#626a62;
+  font-size:15px;
+}
+.premium-service-grid-clean .premium-card-copy>span{
+  display:inline-block;
+  margin-top:auto;
+}
+.premium-service-grid-clean .clean-service-card{
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+}
+.premium-service-grid-clean .premium-card-copy{
+  display:flex;
+  flex-direction:column;
+}
+
+/* Hide legacy decorative motifs if stale markup is ever rendered */
+.home-services-v3 .service-motif{display:none!important}
+
+@media(max-width:760px){
+  .home-services-v3{
+    padding-top:58px;
+    padding-bottom:64px;
+  }
+  .home-services-v3 .section-intro{
+    margin-bottom:26px;
+  }
+  .home-services-v3 .section-intro p{
+    font-size:15px;
+    line-height:1.5;
+  }
+  .premium-service-grid-clean{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+  .premium-service-grid-clean .clean-service-card{
+    min-height:0;
+    padding:22px;
+    border-radius:14px;
+  }
+  .premium-service-grid-clean .premium-card-top{
+    font-size:9px;
+  }
+  .clean-service-icon{
+    width:38px;
+    height:38px;
+    margin:22px 0 24px;
+    border-radius:10px;
+  }
+  .clean-service-icon svg{
+    width:20px;
+    height:20px;
+  }
+  .premium-service-grid-clean .premium-card-copy h3{
+    font-size:28px;
+  }
+  .premium-service-grid-clean .premium-card-copy p{
+    margin:10px 0 20px;
+    font-size:15px;
+    line-height:1.5;
+  }
+  .premium-service-grid-clean .premium-card-copy>span{
+    font-size:12px;
+  }
+}
