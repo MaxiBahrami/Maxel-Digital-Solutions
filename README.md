@@ -1,104 +1,150 @@
 # Maxel Digital Solutions
 
-A standalone, fully static company website. The original Maxel design has been converted into editable HTML pages, shared CSS and small browser-side JavaScript.
+The Maxel website as an independent project, with two modes:
 
-**No React, ChatGPT, Cloudflare Worker, database, authentication service or runtime server is required.** Node.js is used only to assemble the files before deployment and to preview them locally.
+| Mode | Website | Contact | Storage |
+| --- | --- | --- | --- |
+| Static | HTML, CSS and browser JavaScript | Prepare, copy or download a brief | None |
+| Full application | The same design, served by Node.js | Submit inquiries; private studio inbox | PostgreSQL |
 
-## Requirements
+**No ChatGPT sign-in, Sites hosting, SQLite or Cloudflare D1 is required.** The backend uses PostgreSQL and parameterized SQL through `pg`.
 
-- Node.js 22 or later
-- No npm dependencies or API keys
+## Test the complete website on your Mac
 
-## Run locally
+Install and start Docker Desktop first. Then open Terminal:
+
+```sh
+git clone https://github.com/MaxiBahrami/Maxel-Digital-Solutions.git
+cd Maxel-Digital-Solutions
+bash scripts/dev-up.sh
+```
+
+If you already cloned the repository, enter that folder and run `git pull` instead of cloning again.
+
+Open:
+
+- Website: **http://localhost:8080**
+- Studio inbox: **http://localhost:8080/admin/**
+
+The first start builds the application and starts PostgreSQL. It generates unique passwords in your local `.env` file and prints the new studio password in your own terminal. On later starts, find it under `ADMIN_PASSWORD` in `.env`. Do not publish or share that file.
+
+Use the contact page to send a test inquiry, then sign into the studio to see it. You can search, filter, paginate, change status and open an email reply. No automatic confirmation or notification emails are sent.
+
+### Stop and restart
+
+```sh
+bash scripts/dev-down.sh
+bash scripts/dev-up.sh
+```
+
+The PostgreSQL Docker volume preserves inquiries across stops and restarts. **Do not run `docker compose down -v` unless you intend to erase the database.**
+
+The development setup binds the website to your computer’s loopback address only. The PostgreSQL port is not exposed to your network. If port 8080 is already occupied, stop the conflicting application or update both the Compose port mapping and `APP_ORIGIN` consistently.
+
+### See logs
+
+```sh
+docker compose logs --tail=100 web
+docker compose logs --tail=100 db
+```
+
+## What happened to the previous database?
+
+The previous hosted database was inspected on **2026-09-16**. Both `inquiries` and `studio_owner` contained **zero rows**, so there were no records to transfer.
+
+This repository includes the application code, PostgreSQL schema and versioned SQL migrations. GitHub does not host a running database. Real inquiries live in your local PostgreSQL volume, or in a database you configure on your hosting provider. Passwords, sessions and customer records are deliberately excluded from GitHub.
+
+See [db/README.md](db/README.md) for schema and backup details.
+
+## Run without Docker
+
+Requirements: Node.js **22.9+** and a running PostgreSQL database. Docker is not required if you manage PostgreSQL separately.
+
+```sh
+npm ci
+npm run build:server
+```
+
+Create a private `.env` based on `.env.example`. Supply a real `DATABASE_URL`, strong `ADMIN_PASSWORD`, random `SESSION_SECRET`, and the exact `APP_ORIGIN` you will open. Replace every `REPLACE_` placeholder. The server rejects placeholder admin credentials.
+
+```sh
+npm start
+```
+
+Migrations run on startup before the website accepts connections. The supplied database account needs permission to create tables and indexes in that database. The first migration creates inquiries and hashed admin sessions; later applied migrations are protected by checksums.
+
+The default native server binds to `127.0.0.1:8080`. For a hosted container, use `HOST=0.0.0.0` and your real `APP_ORIGIN`. Public production origins must use HTTPS. Put HTTPS termination at your hosting platform or reverse proxy; this Node server does not issue TLS certificates. Cookies use `Secure` automatically with an HTTPS origin.
+
+The server deliberately does not trust client-supplied proxy IP headers. Behind a reverse proxy, inquiry IP rate limits may group visitors together until trusted-proxy support is configured for that environment.
+
+## Keep or publish the static version
 
 ```sh
 npm run dev
 ```
 
-Open `http://localhost:4173`. This builds and serves the website. After editing source files, run `npm run build` in another terminal and refresh the browser. The preview server deliberately binds to localhost.
-
-## Build and verify
+This builds static files and serves them at **http://localhost:4173**. It does not start PostgreSQL or the API.
 
 ```sh
-npm test
 npm run build
 ```
 
-Upload the **contents of `dist/`** to any static web host. Only HTML, CSS, browser JavaScript and local images are deployed. Do not upload the source folder instead of the built output.
+Upload the contents of `dist/` to a static host. The static build has no inbox or login link, and its contact helper clearly states that nothing is sent or saved. Configure a public `contactEmail` in `site.config.mjs` to optionally open an email draft. The user must send that email themselves.
 
-All routes are actual folders containing `index.html`. Deep links work with ordinary directory-index hosting; no SPA fallback is required. Configure the host to serve `404.html` for unknown addresses if supported.
-
-### Hosting under a subdirectory
-
-For a GitHub Pages project URL, for example:
+For a GitHub Pages project path:
 
 ```sh
-BASE_PATH=/Maxel-Digital-Solutions/ npm test
 BASE_PATH=/Maxel-Digital-Solutions/ npm run build
 BASE_PATH=/Maxel-Digital-Solutions/ npm run preview
 ```
 
-In PowerShell, set `$env:BASE_PATH = '/Maxel-Digital-Solutions/'` before running the npm commands.
+The full PostgreSQL application must run at a domain root; it cannot be deployed to GitHub Pages. Uploading the source repository does not automatically enable hosting.
 
-`BASE_PATH` defaults to `/`, which is appropriate for a custom domain or a website hosted at a domain root. It must begin and end with `/`. Use the same value when building and previewing. GitHub Pages still needs to be configured separately in repository settings with a publishing workflow or your chosen deployment pipeline. Uploading this source to GitHub does not itself enable hosting.
+## Domain and metadata
 
-### Custom domain and search metadata
+Set `siteUrl` in `site.config.mjs`, or use `SITE_URL=https://www.example.com` during a build. This generates canonical URLs, a sitemap and robots.txt. Leave it empty until you have your actual domain. Domain/DNS configuration and hosting are separate from the GitHub upload.
 
-Set `siteUrl` in `site.config.mjs` to your domain origin, or set `SITE_URL` at build time:
-
-```sh
-SITE_URL=https://www.example.com npm run build
-```
-
-This generates canonical URLs, `sitemap.xml` and `robots.txt`. Until a real origin is configured, the build omits these rather than publishing an invented address. Domain registration and DNS configuration happen at your provider.
-
-## Contact behavior
-
-The project brief helper runs entirely in the visitor’s browser:
-
-- Validates the required fields using native browser validation.
-- Creates a readable project brief.
-- Lets the visitor copy it or download it as a text file.
-- Optionally opens a prefilled email draft after `contactEmail` is set in `site.config.mjs`.
-
-**It does not send email or submit, store or save inquiries.** The visitor must send a draft through their own email app. Long drafts fall back to copy/download to avoid mail-URL limits. If clipboard access is unavailable, the text is selected for manual copying. No data is written to browser storage.
-
-`contactEmail` is intentionally blank because a public business email has not been confirmed. The existing link to Maximilian’s personal website remains available. Only set an address you want to publish in the generated HTML.
-
-The former server inbox, owner account, database and `/api` routes are not part of this static project. Data from the hosted application is not exported.
-
-## Editing
+## Project structure
 
 ```text
-site.config.mjs       Public name, domain, contact email and website settings
-src/pages.json       Routes, page titles and descriptions
-src/pages/*.html     Page content, editable without a framework
-src/styles.css       Shared responsive design
-src/main.js          Mobile navigation and project brief interactions
-src/assets/          Favicon and encoded source artwork
-scripts/build.mjs    Dependency-free static builder
-scripts/serve.mjs    Local preview server
-tests/static.test.mjs  Route, asset and static-behavior checks
+src/pages/             Editable HTML content, including both contact modes
+src/styles.css         Responsive shared design
+src/main.js            Static navigation and local brief helper
+src/contact-server.js  PostgreSQL contact form client
+src/admin/             Independent studio login and inbox UI
+src/assets/            Original artwork and favicon
+site.config.mjs        Public name, domain and contact settings
+server/                Node.js HTTP API, authorization and static serving
+db/migrations/         PostgreSQL SQL migrations
+scripts/dev-up.sh      Start the complete local application
+scripts/dev-down.sh    Stop it while keeping database data
+scripts/build.mjs      Static builder
+scripts/build-server.mjs  Builder with live contact and studio links
+tests/                 Static, PostgreSQL and HTTP flow tests
+compose.yaml           Node application + PostgreSQL 17
+Dockerfile             Application image
+.env.example           Placeholder configuration, never real credentials
 ```
 
-The hero artwork is stored as `maxel-sculpture.webp.base64` for lossless, text-safe source transport. The builder decodes it to an ordinary local `.webp` file; browsers never load the encoded source. To replace it, base64-encode your WebP into that source file. The favicon is a standard SVG.
+The hero asset is losslessly stored as base64 source and decoded into a normal local WebP by the builder. The browser does not load the base64 source. Page navigation and FAQ disclosures work without JavaScript; form helpers and the studio UI require JavaScript.
 
-To add a page, create its HTML fragment in `src/pages/` and add a route record to `src/pages.json`. Shared navigation and document layout are in `scripts/build.mjs`.
+## Verification
 
-## Included pages
+```sh
+npm ci
+npm test
+```
 
-- Home
-- Services and three individual service pages
-- Selected work and EDUFY case study
-- Studio
-- Contact / project brief
-- Data & privacy
-- Custom 404 page
+Tests cover static routes/assets, contact validation, SQL persistence, duplicate retries, submission rate limits, admin login/logout, hashed sessions, access control, parameterized search, status updates, and migration idempotency.
 
-Navigation, FAQ disclosure controls and all page content work without JavaScript. The optional project brief helper needs JavaScript. Images and scripts are served locally; the website does not fetch third-party fonts, analytics or trackers.
+Database integration tests use **PGlite**, the PostgreSQL engine compiled to WebAssembly. This is not SQLite and is used only in tests. The production application uses a normal PostgreSQL service through `pg.Pool`.
 
-## Validation
+The Docker stack has not been launched in the build environment because Docker is unavailable there. Run `bash scripts/dev-up.sh` on your Mac to verify the complete Docker Desktop setup. The Node HTTP API and PostgreSQL query behavior are covered by the integration tests.
 
-`npm test` builds the project and verifies all public routes, internal links, local assets, page titles, heading counts and anchor targets. It also checks for accidental server/authentication dependencies and verifies the contact flow does not claim to send messages.
+## Private data and credentials
 
-The project has been checked with both `/` and `/Maxel-Digital-Solutions/` base paths. These automated checks are not a visual browser audit.
+- `.env`, backups and dumps stay outside Git.
+- Inquiries remain in PostgreSQL; the application does not export them to the repository.
+- Session cookies are HTTP-only and SameSite=Strict; database session tokens are hashed.
+- Changing the admin password does not invalidate sessions already issued. To revoke all current sessions, run `DELETE FROM admin_sessions;` as the database administrator, then restart the application with the new password.
+- Back up the database before destructive database or volume operations.

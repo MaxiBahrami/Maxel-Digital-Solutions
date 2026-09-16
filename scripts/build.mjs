@@ -7,6 +7,8 @@ const out=join(root,'dist');
 const rawBase=process.env.BASE_PATH??'/';
 if(!/^\/(?:[A-Za-z0-9_-]+\/)*$/.test(rawBase))throw new Error('BASE_PATH must be / or a path like /Maxel-Digital-Solutions/.');
 const base=rawBase;
+const serverMode=process.env.CONTACT_MODE==='server';
+if(serverMode&&base!=='/')throw new Error('The PostgreSQL backend must be served at the domain root.');
 const origin=(process.env.SITE_URL??config.siteUrl).replace(/\/$/,'');
 if(origin&&!/^https?:\/\/[^/?#]+$/.test(origin))throw new Error('SITE_URL must be an origin such as https://example.com. Use BASE_PATH for a subdirectory.');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -32,6 +34,7 @@ function shell(page,content){
   <link rel="icon" href="${href('/assets/favicon.svg')}" type="image/svg+xml">
   <link rel="stylesheet" href="${href('/assets/styles.css')}">
   <script src="${href('/assets/main.js')}" defer></script>
+  ${serverMode&&page.path==='/contact/'?`<script src="${href('/assets/contact-server.js')}" defer></script>`:''}
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -43,7 +46,7 @@ function shell(page,content){
 </header>
 <main id="main">${content}</main>
 <div class="end-wordmark" aria-hidden="true">maxel<span>↗</span></div>
-<footer><p>© ${new Date().getFullYear()} ${esc(config.name)}</p><nav aria-label="Footer navigation"><a href="${href('/privacy/')}">Data & privacy</a><a href="${href('/contact/')}">Contact</a><a href="#main">Back to top ↑</a></nav></footer>
+<footer><p>© ${new Date().getFullYear()} ${esc(config.name)}</p><nav aria-label="Footer navigation"><a href="${href('/privacy/')}">Data & privacy</a><a href="${href('/contact/')}">Contact</a>${serverMode?'<a href="/admin/">Studio login</a>':''}<a href="#main">Back to top ↑</a></nav></footer>
 </body>
 </html>\n`;
 }
@@ -52,7 +55,8 @@ await rm(out,{recursive:true,force:true});await mkdir(join(out,'assets'),{recurs
 for(const file of await readdir(join(root,'src/assets'))){const source=join(root,'src/assets',file);if(file.endsWith('.base64'))await writeFile(join(out,'assets',file.slice(0,-7)),Buffer.from(await readFile(source,'utf8'),'base64'));else await copyFile(source,join(out,'assets',file));}
 await copyFile(join(root,'src/styles.css'),join(out,'assets/styles.css'));
 await copyFile(join(root,'src/main.js'),join(out,'assets/main.js'));
-for(const page of routes){let content=await readFile(join(root,'src/pages',page.source),'utf8');content=content.replaceAll('{{CONTACT_EMAIL}}',esc(config.contactEmail)).replaceAll('{{PERSONAL_WEBSITE}}',esc(config.personalWebsite));const folder=join(out,page.path);await mkdir(folder,{recursive:true});await writeFile(join(folder,'index.html'),shell(page,rewriteLinks(content)));}
+if(serverMode)await copyFile(join(root,'src/contact-server.js'),join(out,'assets/contact-server.js'));
+for(const page of routes){let source=page.source;if(serverMode&&page.path==='/contact/')source='contact-server.html';if(serverMode&&page.path==='/privacy/')source='privacy-server.html';let content=await readFile(join(root,'src/pages',source),'utf8');content=content.replaceAll('{{CONTACT_EMAIL}}',esc(config.contactEmail)).replaceAll('{{PERSONAL_WEBSITE}}',esc(config.personalWebsite));const folder=join(out,page.path);await mkdir(folder,{recursive:true});await writeFile(join(folder,'index.html'),shell(page,rewriteLinks(content)));}
 const missing={path:'/404.html',title:'Page not found | '+config.name,description:'Return to Maxel Digital Solutions.'};
 await writeFile(join(out,'404.html'),shell(missing,`<section class="page-intro"><span class="eyebrow">404 / PAGE NOT FOUND</span><h1>Let’s get you<br>back on track.</h1><p>This page may have moved, or the address may be incorrect.</p><a class="button primary" href="${base}">Back to the homepage <span aria-hidden="true">↗</span></a></section>`));
 await writeFile(join(out,'.nojekyll'),'');
