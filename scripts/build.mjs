@@ -36,7 +36,7 @@ function shell(page,content){
   <script src="${href('/assets/main.js')}" defer></script>
   ${serverMode&&page.path==='/contact/'?`<script src="${href('/assets/contact-server.js')}" defer></script>`:''}
 </head>
-<body>
+<body${page.path==='/'?' class="home-page"':''}>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header site-header">
   <a class="brand" href="${base}" aria-label="Maxel Digital Solutions home">maxel<span>digital solutions</span></a>

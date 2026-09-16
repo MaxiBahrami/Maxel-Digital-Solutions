@@ -121,6 +121,7 @@ if(typeof document.querySelectorAll==='function'){
       active=Math.max(0,Math.min(cards.length-1,index));
       cards.forEach((card,i)=>card.classList.toggle('is-active',i===active));
       dots.forEach((dot,i)=>dot.classList.toggle('is-active',i===active));
+      rail.style.setProperty('--mx-process-progress',cards.length>1?((active/(cards.length-1))*100)+'%':'0%');
       if(prev)prev.disabled=active===0;
       if(next)next.disabled=active===cards.length-1;
     };
@@ -241,4 +242,50 @@ if(typeof document.querySelectorAll==='function'){
     setState(states[0]);
     restart();
   });
+}
+
+
+if(typeof document.querySelectorAll==='function'){
+  const workShowcases=document.querySelectorAll('[data-work-showcase]');
+  workShowcases.forEach(showcase=>{
+    const stage=showcase.querySelector('.mx-work2__stage');
+    const tabs=Array.from(showcase.querySelectorAll('[data-work-tab]'));
+    const title=showcase.querySelector('[data-work-title]');
+    const kicker=showcase.querySelector('[data-work-kicker]');
+    const index=showcase.querySelector('[data-work-index]');
+    if(!stage||!tabs.length)return;
+    const copy={
+      student:['STUDENT EXPERIENCE','Learning that feels clear.','01 / 03'],
+      teacher:['TEACHER EXPERIENCE','Teaching with less friction.','02 / 03'],
+      admin:['ADMIN EXPERIENCE','Operations in one place.','03 / 03']
+    };
+    const setWork=state=>{
+      stage.dataset.workState=state;
+      tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.workTab===state));
+      if(copy[state]){
+        if(kicker)kicker.textContent=copy[state][0];
+        if(title)title.textContent=copy[state][1];
+        if(index)index.textContent=copy[state][2];
+      }
+    };
+    tabs.forEach(tab=>tab.addEventListener('click',()=>setWork(tab.dataset.workTab)));
+    setWork('student');
+  });
+}
+
+if(typeof window!=='undefined'&&typeof document!=='undefined'){
+  const root=document.documentElement;
+  const header=document.querySelector?document.querySelector('.site-header'):null;
+  const updatePageProgress=()=>{
+    const doc=document.documentElement;
+    const max=Math.max(1,(doc.scrollHeight||0)-(window.innerHeight||0));
+    const progress=Math.max(0,Math.min(1,(window.scrollY||0)/max));
+    root.style.setProperty('--mx-page-progress',String(progress));
+    if(header)header.classList.toggle('is-scrolled',(window.scrollY||0)>24);
+  };
+  if(typeof window.addEventListener==='function'){
+    window.addEventListener('scroll',updatePageProgress,{passive:true});
+    window.addEventListener('resize',updatePageProgress,{passive:true});
+  }
+  updatePageProgress();
 }

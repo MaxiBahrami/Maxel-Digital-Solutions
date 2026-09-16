@@ -88,3 +88,18 @@ test('homepage hero uses the interactive Maxel system lab',async()=>{
  assert.doesNotMatch(home,/hero-image-card/);
  assert.doesNotMatch(home,/hero-proof/);
 });
+
+test('homepage master direction connects work studio launch and motion systems',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/<body class="home-page">/);
+ assert.match(home,/data-work-showcase/);
+ assert.match(home,/data-work-tab="student"/);
+ assert.match(home,/data-work-tab="teacher"/);
+ assert.match(home,/data-work-tab="admin"/);
+ assert.match(home,/class="mx-studio motion-section"/);
+ assert.match(home,/class="mx-launch motion-section"/);
+ assert.match(home,/Bring the problem\.<br>We’ll define the system\./);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/MAXEL HOMEPAGE MASTER DIRECTION V18/);
+ assert.match(css,/--mx-page-progress/);
+});
