@@ -1,4 +1,4 @@
-export const services=['websites','digital-products','digital-improvements','not-sure'];
+export const services=['digital-strategy','websites','digital-products','digital-improvements','not-sure'];
 export const budgets=['Not decided yet','Under 10,000 SEK','10,000–30,000 SEK','30,000–75,000 SEK','75,000+ SEK'];
 export const timelines=['Flexible / exploring','Within 1 month','Within 1–3 months','More than 3 months'];
 export function validateInquiry(raw){
