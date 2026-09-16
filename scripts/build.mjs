@@ -13,7 +13,7 @@ const origin=(process.env.SITE_URL??config.siteUrl).replace(/\/$/,'');
 if(origin&&!/^https?:\/\/[^/?#]+$/.test(origin))throw new Error('SITE_URL must be an origin such as https://example.com. Use BASE_PATH for a subdirectory.');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const routes=JSON.parse(await readFile(join(root,'src/pages.json'),'utf8'));
-const navigation=[['/services/','Services'],['/work/','Work'],['/about/','Studio'],['/contact/','Contact']];
+const navigation=[['/services/','Services'],['/work/','Work'],['/about/','About'],['/contact/','Contact']];
 const href=path=>base+path.replace(/^\//,'');
 function nav(path,mobile=false){return (mobile?[['/','Home'],...navigation]:navigation).map(([to,label])=>`<a href="${href(to)}"${to==='/'?path==='/'?' aria-current="page"':'':path.startsWith(to)?' aria-current="page"':''}>${label}</a>`).join('');}
 function shell(page,content){
@@ -38,15 +38,44 @@ function shell(page,content){
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="header">
+<header class="header site-header">
   <a class="brand" href="${base}" aria-label="Maxel Digital Solutions home">maxel<span>digital solutions</span></a>
   <nav class="desktop-nav" aria-label="Main navigation">${nav(page.path)}</nav>
   <a class="nav-contact" href="${href('/contact/')}">Start a project <span aria-hidden="true">↗</span></a>
   <details class="static-menu"><summary aria-label="Navigation menu"><span aria-hidden="true">☰</span></summary><nav aria-label="Mobile navigation">${nav(page.path,true)}</nav></details>
 </header>
 <main id="main">${content}</main>
-<div class="end-wordmark" aria-hidden="true">maxel<span>↗</span></div>
-<footer><p>© ${new Date().getFullYear()} ${esc(config.name)}</p><nav aria-label="Footer navigation"><a href="${href('/privacy/')}">Data & privacy</a><a href="${href('/contact/')}">Contact</a>${serverMode?'<a href="/admin/">Studio login</a>':''}<a href="#main">Back to top ↑</a></nav></footer>
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a class="brand" href="${base}" aria-label="Maxel Digital Solutions home">maxel<span>digital solutions</span></a>
+      <p>Digital strategy, websites, products and connected systems for businesses and founders.</p>
+    </div>
+    <div class="footer-column">
+      <h2>Services</h2>
+      <a href="${href('/services/digital-strategy/')}">Digital strategy</a>
+      <a href="${href('/services/websites/')}">Websites & commerce</a>
+      <a href="${href('/services/digital-products/')}">Products & systems</a>
+      <a href="${href('/services/digital-improvements/')}">Improvements & integrations</a>
+    </div>
+    <div class="footer-column">
+      <h2>Company</h2>
+      <a href="${href('/work/')}">Work</a>
+      <a href="${href('/about/')}">About</a>
+      <a href="${href('/contact/')}">Contact</a>
+      <a href="${href('/privacy/')}">Data & privacy</a>
+    </div>
+    <div class="footer-contact">
+      <span class="eyebrow">HAVE A PROJECT IN MIND?</span>
+      <h2>Make the next digital step clear.</h2>
+      <a class="footer-cta" href="${href('/contact/')}">Start a conversation <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© ${new Date().getFullYear()} ${esc(config.name)} · Sweden / working worldwide</p>
+    <nav aria-label="Footer utility navigation">${serverMode?'<a href="/admin/">Studio login</a>':''}<a href="#main">Back to top ↑</a></nav>
+  </div>
+</footer>
 </body>
 </html>\n`;
 }
