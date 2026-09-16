@@ -2128,3 +2128,113 @@ img,svg{max-width:100%}
   }
 }
 
+
+
+/* =========================================================
+   MOBILE SERVICE CARDS V5
+   Mobile uses a compact list-card composition instead of
+   scaled-down desktop cards.
+   ========================================================= */
+@media (max-width:768px){
+  .home-services-v3{
+    padding-top:48px;
+    padding-bottom:52px;
+  }
+
+  .home-services-v3 .section-intro{
+    margin-bottom:22px;
+  }
+
+  .premium-service-grid-clean{
+    gap:8px;
+  }
+
+  .premium-service-grid-clean .clean-service-card{
+    min-height:0!important;
+    padding:17px 16px!important;
+    display:grid!important;
+    grid-template-columns:38px minmax(0,1fr);
+    grid-template-rows:auto auto;
+    column-gap:14px;
+    row-gap:15px;
+    align-items:start;
+    border-radius:12px;
+  }
+
+  .premium-service-grid-clean .premium-card-top{
+    grid-column:1/-1;
+    grid-row:1;
+    margin:0;
+    font-size:8px;
+    line-height:1;
+    letter-spacing:.13em;
+  }
+
+  .premium-service-grid-clean .clean-service-icon{
+    grid-column:1;
+    grid-row:2;
+    width:34px;
+    height:34px;
+    margin:1px 0 0!important;
+    border-radius:8px;
+  }
+
+  .premium-service-grid-clean .clean-service-icon svg{
+    width:17px;
+    height:17px;
+  }
+
+  .premium-service-grid-clean .premium-card-copy{
+    grid-column:2;
+    grid-row:2;
+    display:block;
+    margin:0!important;
+    min-width:0;
+  }
+
+  .premium-service-grid-clean .premium-card-copy h3{
+    margin:0;
+    font-size:23px;
+    line-height:1.03;
+    letter-spacing:-.045em;
+  }
+
+  .premium-service-grid-clean .premium-card-copy p{
+    margin:7px 0 12px;
+    font-size:13px;
+    line-height:1.42;
+  }
+
+  .premium-service-grid-clean .premium-card-copy>span{
+    margin:0;
+    font-size:10px;
+    line-height:1.2;
+  }
+}
+
+@media (max-width:480px){
+  .premium-service-grid-clean .clean-service-card{
+    padding:15px 14px!important;
+    grid-template-columns:34px minmax(0,1fr);
+    column-gap:12px;
+    row-gap:13px;
+  }
+
+  .premium-service-grid-clean .clean-service-icon{
+    width:31px;
+    height:31px;
+  }
+
+  .premium-service-grid-clean .clean-service-icon svg{
+    width:16px;
+    height:16px;
+  }
+
+  .premium-service-grid-clean .premium-card-copy h3{
+    font-size:21px;
+  }
+
+  .premium-service-grid-clean .premium-card-copy p{
+    font-size:12.5px;
+  }
+}
