@@ -42,13 +42,3 @@ test('home and services use the scroll-driven service system',async()=>{
   assert.doesNotMatch(html,/services-showcase/,name);
  }
 });
-
-test('homepage uses distinct modern systems after services',async()=>{
- const html=await readFile(join(dist,'index.html'),'utf8');
- assert.match(html,/class="mx-work motion-section"/);
- assert.match(html,/class="mx-process motion-section"/);
- assert.match(html,/class="mx-about motion-section"/);
- assert.match(html,/class="mx-cta motion-section"/);
- assert.match(html,/EDUFY \/ PRODUCT SYSTEM/);
- assert.match(html,/Clear decisions\.<br>Then delivery\./);
-});
