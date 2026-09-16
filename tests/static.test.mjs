@@ -29,3 +29,16 @@ test('the hero asset is a real, locally hosted WebP',async()=>{
 test('output has no authentication, server or source-asset files',async()=>{
  const files=await readdir(dist,{recursive:true});assert.ok(files.includes('404.html'));assert.ok(files.includes('.nojekyll'));assert.ok(!files.some(f=>/\.base64$|^admin(?:\/|$)|^api(?:\/|$)|\.env|\.tsx$/.test(f)));
 });
+
+test('home and services use the scroll-driven service system',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ const services=await readFile(join(dist,'services/index.html'),'utf8');
+ for(const [name,html] of [['home',home],['services',services]]){
+  assert.match(html,/data-service-system/,name);
+  assert.match(html,/data-state="strategy"/,name);
+  assert.match(html,/data-state="websites"/,name);
+  assert.match(html,/data-state="products"/,name);
+  assert.match(html,/data-state="improvements"/,name);
+  assert.doesNotMatch(html,/services-showcase/,name);
+ }
+});
