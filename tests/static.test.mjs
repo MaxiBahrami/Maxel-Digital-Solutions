@@ -147,3 +147,15 @@ test('EDUFY case context is integrated into the product window and revealed on d
  assert.match(css,/EDUFY UNIFIED PROJECT DETAILS V22/);
  assert.match(css,/\.mx-work2__about\.is-about-enhanced \.mx-work2__aboutReveal/);
 });
+
+test('EDUFY mobile preview avoids duplicate intro and keeps summary on demand',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.doesNotMatch(home,/class="mx-work2__selectedTitle"/);
+ assert.match(home,/PROJECT CONTEXT · EDUFY/);
+ assert.match(home,/class="mx-work2__aboutSummary"/);
+ assert.match(home,/Education platform in active development across student, teacher and administration experiences\./);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/EDUFY MOBILE PRODUCT CARD V23/);
+ assert.match(css,/\.mx-work2__side\{\s*display:none;/);
+ assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
+});
