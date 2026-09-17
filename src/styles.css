@@ -6990,3 +6990,233 @@ button.mx-worknav__card.is-selected{
     filter:none!important;
   }
 }
+
+
+/* =========================================================
+   EDUFY UNIFIED PROJECT DETAILS V22
+   The case context now belongs to the product window instead
+   of appearing as a second standalone card.
+   ========================================================= */
+.mx-work2__stage{
+  grid-template-columns:minmax(0,1fr);
+}
+.mx-work2__window{
+  width:100%;
+}
+.mx-work2__about{
+  border-top:1px solid #29312c;
+  background:#111612;
+}
+.mx-work2__aboutToggle{
+  width:100%;
+  min-height:82px;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  border:0;
+  background:transparent;
+  color:#eef2ed;
+  text-align:left;
+  cursor:pointer;
+  transition:background .24s ease,color .24s ease;
+}
+.mx-work2__aboutToggle:hover{
+  background:#171e19;
+}
+.mx-work2__aboutToggle>span{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.mx-work2__aboutToggle small{
+  color:#707b73;
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:.13em;
+}
+.mx-work2__aboutToggle strong{
+  font-size:15px;
+  font-weight:680;
+  letter-spacing:-.015em;
+}
+.mx-work2__aboutToggle>b{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  display:grid;
+  place-items:center;
+  border:1px solid #3b463f;
+  border-radius:50%;
+  color:var(--mx-accent);
+  font-size:17px;
+  font-weight:400;
+  transition:
+    transform .48s cubic-bezier(.2,.75,.2,1),
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+}
+.mx-work2__about.is-open .mx-work2__aboutToggle{
+  background:#151b17;
+}
+.mx-work2__about.is-open .mx-work2__aboutToggle>b{
+  transform:rotate(180deg);
+  border-color:#80964e;
+  background:var(--mx-accent);
+  color:#11150e;
+}
+
+.mx-work2__aboutReveal{
+  overflow:hidden;
+}
+.mx-work2__about.is-about-enhanced .mx-work2__aboutReveal{
+  display:grid;
+  grid-template-rows:0fr;
+  opacity:0;
+  transform:translateY(-10px);
+  transition:
+    grid-template-rows .76s cubic-bezier(.2,.75,.2,1),
+    opacity .46s ease,
+    transform .66s cubic-bezier(.2,.75,.2,1);
+}
+.mx-work2__about.is-about-enhanced.is-open .mx-work2__aboutReveal{
+  grid-template-rows:1fr;
+  opacity:1;
+  transform:none;
+}
+.mx-work2__aboutInner{
+  min-height:0;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);
+  gap:42px 56px;
+  padding:0 18px;
+  border-top:1px solid transparent;
+  transition:
+    padding .66s cubic-bezier(.2,.75,.2,1),
+    border-color .35s ease;
+}
+.mx-work2__about.is-open .mx-work2__aboutInner{
+  padding:34px 18px 22px;
+  border-top-color:#29312c;
+}
+.mx-work2__aboutIntro{
+  min-width:0;
+}
+.mx-work2__aboutIntro h3{
+  margin:16px 0 16px;
+  font-size:clamp(34px,4.5vw,58px);
+  line-height:.96;
+  letter-spacing:-.055em;
+}
+.mx-work2__aboutIntro p{
+  max-width:670px;
+  color:#98a29a;
+  font-size:14px;
+  line-height:1.65;
+}
+.mx-work2__aboutFacts{
+  margin:0;
+  align-self:start;
+}
+.mx-work2__aboutFacts>div{
+  padding:13px 0;
+  display:grid;
+  grid-template-columns:66px 1fr;
+  gap:14px;
+  border-top:1px solid #303a33;
+}
+.mx-work2__aboutFacts>div:last-child{
+  border-bottom:1px solid #303a33;
+}
+.mx-work2__aboutFacts dt{
+  color:#677169;
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.mx-work2__aboutFacts dd{
+  margin:0;
+  color:#c4ccc6;
+  font-size:11px;
+  line-height:1.45;
+}
+.mx-work2__aboutLink{
+  grid-column:1/-1;
+  min-height:58px;
+  padding:0 2px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  border-top:1px solid #303a33;
+  color:var(--mx-accent);
+  font-size:12px;
+  font-weight:700;
+}
+.mx-work2__aboutLink span{
+  font-size:18px;
+  transition:transform .24s ease;
+}
+.mx-work2__aboutLink:hover span{
+  transform:translate(3px,-3px);
+}
+
+/* Remove spacing assumptions from the old two-column card layout. */
+.mx-work2__copy{
+  display:none;
+}
+
+@media(max-width:760px){
+  .mx-work2__aboutToggle{
+    min-height:72px;
+    padding:12px 14px;
+  }
+  .mx-work2__aboutToggle strong{
+    font-size:14px;
+  }
+  .mx-work2__aboutToggle>b{
+    width:34px;
+    height:34px;
+    flex-basis:34px;
+    font-size:15px;
+  }
+  .mx-work2__aboutInner{
+    grid-template-columns:1fr;
+    gap:22px;
+    padding-left:14px;
+    padding-right:14px;
+  }
+  .mx-work2__about.is-open .mx-work2__aboutInner{
+    padding:28px 14px 18px;
+  }
+  .mx-work2__aboutIntro h3{
+    margin:13px 0 13px;
+    font-size:36px;
+  }
+  .mx-work2__aboutIntro p{
+    font-size:13px;
+    line-height:1.58;
+  }
+  .mx-work2__aboutFacts>div{
+    grid-template-columns:58px 1fr;
+    gap:10px;
+    padding:11px 0;
+  }
+  .mx-work2__aboutLink{
+    min-height:52px;
+    font-size:11px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mx-work2__aboutToggle>b,
+  .mx-work2__aboutReveal,
+  .mx-work2__aboutInner,
+  .mx-work2__aboutLink span{
+    transition:none!important;
+  }
+}
