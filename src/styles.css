@@ -7220,3 +7220,247 @@ button.mx-worknav__card.is-selected{
     transition:none!important;
   }
 }
+
+
+/* =========================================================
+   EDUFY MOBILE PRODUCT CARD V23
+   Cleaner selected-case flow: no duplicate EDUFY intro above
+   the product, and a compact mobile product preview.
+   ========================================================= */
+
+/* The project name/summary is now part of the optional About panel. */
+.mx-work2__selectedTitle{
+  display:none!important;
+}
+
+/* Give the selected product breathing room without a second intro block. */
+.mx-work2__detailWrap.is-open{
+  padding-top:8px;
+}
+.mx-work2__window{
+  border-color:#354038;
+  background:#111612;
+}
+.mx-work2__aboutSummary{
+  margin:0 0 12px!important;
+  color:#c0c8c2!important;
+  font-size:13px!important;
+  line-height:1.55!important;
+}
+
+@media(max-width:760px){
+  /* Make the product preview feel like one deliberate interface, not a tall mock dashboard. */
+  .mx-work2__detailWrap.is-open{
+    padding-top:2px;
+  }
+  .mx-work2__window{
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .mx-work2__windowbar{
+    min-height:36px;
+    padding:0 12px;
+    font-size:5.5px;
+    letter-spacing:.11em;
+  }
+
+  .mx-work2__product{
+    min-height:330px;
+    display:block;
+    position:relative;
+    background:
+      radial-gradient(circle at 82% 22%,rgba(216,255,122,.055),transparent 28%),
+      linear-gradient(145deg,#172019,#101411 72%);
+  }
+
+  /* The desktop sidebar made the mobile card look cramped and over-engineered. */
+  .mx-work2__side{
+    display:none;
+  }
+
+  .mx-work2__screen{
+    min-height:330px;
+    padding:18px 16px 14px;
+  }
+  .mx-work2__screen:before{
+    width:260px;
+    height:260px;
+    right:-120px;
+    bottom:-110px;
+    opacity:.72;
+  }
+  .mx-work2__screenhead{
+    min-height:72px;
+    padding-right:0;
+  }
+  .mx-work2__screenhead small{
+    margin-bottom:7px;
+    font-size:6px;
+    letter-spacing:.12em;
+  }
+  .mx-work2__screenhead strong{
+    max-width:320px;
+    font-size:clamp(28px,8vw,36px);
+    line-height:.98;
+    letter-spacing:-.045em;
+  }
+  .mx-work2__screenhead>span{
+    display:block;
+    padding-top:2px;
+    font-size:6px;
+  }
+
+  .mx-work2__state{
+    left:16px;
+    right:16px;
+    top:98px;
+    bottom:14px;
+  }
+
+  .mx-work2__studentHero{
+    min-height:104px;
+    padding:15px 16px;
+    align-content:center;
+    border-radius:11px;
+  }
+  .mx-work2__studentHero span{
+    font-size:8px;
+  }
+  .mx-work2__studentHero strong{
+    font-size:26px;
+  }
+  .mx-work2__studentHero i{
+    height:5px;
+  }
+
+  /* Compact three-part summary instead of three tall stacked cards. */
+  .mx-work2__cards{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+    margin-top:8px;
+  }
+  .mx-work2__cards span{
+    min-height:78px;
+    padding:10px 9px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    border-radius:9px;
+  }
+  .mx-work2__cards small{
+    margin-bottom:7px;
+    font-size:5.5px;
+  }
+  .mx-work2__cards b{
+    font-size:9px;
+    line-height:1.25;
+  }
+
+  .mx-work2__teacherGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:7px;
+  }
+  .mx-work2__teacherGrid span{
+    min-height:88px;
+    padding:11px;
+    border-radius:9px;
+  }
+  .mx-work2__teacherGrid small{
+    margin-bottom:9px;
+    font-size:5.5px;
+  }
+  .mx-work2__teacherGrid b{
+    font-size:10px;
+  }
+
+  .mx-work2__admin{
+    gap:6px;
+  }
+  .mx-work2__admin span{
+    min-height:42px;
+    padding:0 12px;
+    border-radius:8px;
+  }
+  .mx-work2__admin span b{
+    font-size:10px;
+  }
+  .mx-work2__admin span i{
+    width:48px;
+    height:5px;
+  }
+
+  .mx-work2__footer{
+    min-height:48px;
+    padding:7px 9px;
+  }
+  .mx-work2__tabs{
+    width:100%;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:3px;
+  }
+  .mx-work2__tabs button{
+    min-width:0;
+    padding:7px 4px;
+    text-align:center;
+    font-size:5.7px;
+  }
+
+  .mx-work2__aboutToggle{
+    min-height:60px;
+    padding:10px 12px;
+  }
+  .mx-work2__aboutToggle small{
+    font-size:5.5px;
+  }
+  .mx-work2__aboutToggle strong{
+    font-size:13px;
+  }
+  .mx-work2__aboutToggle>b{
+    width:32px;
+    height:32px;
+    flex-basis:32px;
+  }
+
+  .mx-work2__about.is-open .mx-work2__aboutInner{
+    padding:24px 14px 16px;
+  }
+  .mx-work2__aboutIntro h3{
+    font-size:34px;
+  }
+  .mx-work2__aboutSummary{
+    font-size:12px!important;
+  }
+}
+
+@media(max-width:390px){
+  .mx-work2__screen{
+    min-height:318px;
+    padding-left:13px;
+    padding-right:13px;
+  }
+  .mx-work2__state{
+    left:13px;
+    right:13px;
+  }
+  .mx-work2__screenhead strong{
+    font-size:27px;
+  }
+  .mx-work2__cards{
+    gap:5px;
+  }
+  .mx-work2__cards span{
+    padding:9px 7px;
+  }
+  .mx-work2__cards b{
+    font-size:8.2px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mx-work2__window,
+  .mx-work2__screen,
+  .mx-work2__cards span{
+    transition:none!important;
+  }
+}
