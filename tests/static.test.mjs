@@ -117,3 +117,18 @@ test('hero narrative explains the complete Maxel system journey',async()=>{
  assert.match(home,/data-hero-narrative/);
  assert.match(home,/data-hero-telemetry|mx-lab__telemetry/);
 });
+
+test('selected work uses a scrollable project selector before opening EDUFY',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/data-work-selector/);
+ assert.match(home,/data-work-selector-viewport/);
+ assert.match(home,/data-project-select="edufy"/);
+ assert.match(home,/aria-controls="edufy-case-detail"/);
+ assert.match(home,/data-work-project-panel="edufy"/);
+ assert.match(home,/Choose a case\./);
+ assert.match(home,/02 \/ CASE[\s\S]*RESERVED/);
+ assert.match(home,/03 \/ CASE[\s\S]*RESERVED/);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/SELECTED WORK PROJECT RAIL V20/);
+ assert.match(css,/scroll-snap-type:x mandatory/);
+});
