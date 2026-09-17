@@ -7578,3 +7578,211 @@ button.mx-worknav__card.is-selected{
     margin-bottom:28px;
   }
 }
+
+
+/* =========================================================
+   MAXEL VISUAL BANNER HERO V29
+   Approved generated hero artwork on desktop; live semantic
+   copy + a focused crop of the same artwork on small screens.
+   ========================================================= */
+.mx-heroBanner{
+  position:relative;
+  width:min(100%,1680px);
+  margin:0 auto;
+  padding:26px clamp(18px,2.5vw,42px) 42px;
+  overflow:hidden;
+  background:#0d110f;
+  color:#f2f5ef;
+}
+.mx-heroBanner__media{
+  position:relative;
+  overflow:hidden;
+  aspect-ratio:1200/675;
+  border:1px solid #252e29;
+  border-radius:18px;
+  background:#0b0f0c;
+  box-shadow:0 30px 90px rgba(0,0,0,.28);
+}
+.mx-heroBanner__media:after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:26%;
+  pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(5,8,6,.34));
+}
+.mx-heroBanner__media img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+.mx-heroBanner__semantic{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  clip-path:inset(50%);
+  white-space:nowrap;
+  border:0;
+}
+.mx-heroBanner__actions{
+  position:absolute;
+  z-index:3;
+  left:clamp(72px,7.6vw,136px);
+  bottom:clamp(70px,7vw,116px);
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.mx-heroBanner__primary,
+.mx-heroBanner__secondary{
+  min-height:48px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:720;
+  transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease;
+}
+.mx-heroBanner__primary{
+  padding:0 11px 0 17px;
+  gap:22px;
+  background:var(--mx-accent);
+  color:#11150e;
+}
+.mx-heroBanner__primary span{
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:6px;
+  background:#11150e;
+  color:var(--mx-accent);
+  font-size:15px;
+  transition:transform .22s ease;
+}
+.mx-heroBanner__primary:hover{
+  transform:translateY(-2px);
+  background:#e3ff99;
+}
+.mx-heroBanner__primary:hover span{transform:rotate(45deg)}
+.mx-heroBanner__secondary{
+  padding:0 15px;
+  gap:8px;
+  border:1px solid rgba(226,233,225,.28);
+  background:rgba(11,15,12,.68);
+  color:#eef2ed;
+  backdrop-filter:blur(10px);
+}
+.mx-heroBanner__secondary:hover{
+  transform:translateY(-2px);
+  border-color:#80964e;
+  color:var(--mx-accent);
+}
+
+@media(max-width:900px){
+  .mx-heroBanner{
+    padding:48px 5% 58px;
+  }
+  .mx-heroBanner__semantic{
+    position:static;
+    width:auto;
+    height:auto;
+    margin:0;
+    overflow:visible;
+    clip:auto;
+    clip-path:none;
+    white-space:normal;
+  }
+  .mx-heroBanner__semantic .eyebrow{
+    display:block;
+    max-width:330px;
+    color:#9fa8a0;
+    font-size:9px;
+    line-height:1.5;
+  }
+  .mx-heroBanner__semantic h1{
+    max-width:720px;
+    margin:18px 0 17px;
+    font-size:clamp(44px,11.6vw,58px);
+    font-weight:720;
+    line-height:.96;
+    letter-spacing:-.052em;
+  }
+  .mx-heroBanner__semantic p{
+    max-width:620px;
+    color:#aeb7af;
+    font-size:15px;
+    line-height:1.58;
+  }
+  .mx-heroBanner__actions{
+    position:static;
+    margin-top:25px;
+    flex-wrap:wrap;
+  }
+  .mx-heroBanner__media{
+    height:clamp(250px,74vw,390px);
+    margin-top:30px;
+    aspect-ratio:auto;
+    border-radius:15px;
+  }
+  .mx-heroBanner__media:before{
+    content:"";
+    position:absolute;
+    z-index:2;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(90deg,#0d110f 0%,rgba(13,17,15,.82) 10%,transparent 38%);
+  }
+  .mx-heroBanner__media:after{
+    z-index:2;
+    height:22%;
+  }
+  .mx-heroBanner__media img{
+    width:178%;
+    max-width:none;
+    height:100%;
+    margin-left:-78%;
+    object-fit:cover;
+    object-position:right center;
+  }
+}
+
+@media(max-width:480px){
+  .mx-heroBanner{
+    padding-top:42px;
+    padding-bottom:50px;
+  }
+  .mx-heroBanner__semantic h1{
+    font-size:clamp(42px,11.4vw,52px);
+  }
+  .mx-heroBanner__actions{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:11px;
+  }
+  .mx-heroBanner__primary{
+    justify-content:space-between;
+  }
+  .mx-heroBanner__secondary{
+    min-height:46px;
+    padding:0 12px;
+  }
+  .mx-heroBanner__media{
+    height:265px;
+    margin-top:26px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mx-heroBanner__primary,
+  .mx-heroBanner__primary span,
+  .mx-heroBanner__secondary{
+    transition:none!important;
+  }
+}
