@@ -23,8 +23,11 @@ test('static contact does not claim to send or store inquiries',async()=>{
  const html=await readFile(join(dist,'contact/index.html'),'utf8');assert.match(html,/Nothing is submitted or stored on a server/);assert.match(html,/It has not been sent/);assert.doesNotMatch(html,/INQUIRY SAVED|in Maxel’s inbox|form-success/);
  const js=await readFile(join(dist,'assets/main.js'),'utf8');assert.doesNotMatch(js,/\bfetch\s*\(|XMLHttpRequest|localStorage|sessionStorage/);assert.match(js,/navigator\.clipboard/);assert.match(js,/Blob\(/);
 });
-test('the hero asset is a real, locally hosted WebP',async()=>{
- const bytes=await readFile(join(dist,'assets/maxel-sculpture.webp'));assert.equal(bytes.subarray(0,4).toString(),'RIFF');assert.equal(bytes.subarray(8,12).toString(),'WEBP');assert.ok(bytes.length>10000);
+test('the approved hero banner is a real, locally hosted WebP',async()=>{
+ const bytes=await readFile(join(dist,'assets/maxel-hero-banner.webp'));
+ assert.equal(bytes.subarray(0,4).toString(),'RIFF');
+ assert.equal(bytes.subarray(8,12).toString(),'WEBP');
+ assert.ok(bytes.length>20000);
 });
 test('output has no authentication, server or source-asset files',async()=>{
  const files=await readdir(dist,{recursive:true});assert.ok(files.includes('404.html'));assert.ok(files.includes('.nojekyll'));assert.ok(!files.some(f=>/\.base64$|^admin(?:\/|$)|^api(?:\/|$)|\.env|\.tsx$/.test(f)));
@@ -76,17 +79,19 @@ test('services sticky visual is not trapped by section overflow',async()=>{
  assert.match(css,/\.mx-ss__intro\{\s*overflow:clip;/);
 });
 
-test('homepage hero uses the interactive Maxel system lab',async()=>{
+test('homepage hero uses the approved visual banner with live accessible copy',async()=>{
  const home=await readFile(join(dist,'index.html'),'utf8');
- assert.match(home,/data-system-hero/);
- assert.match(home,/MAXEL\.SYSTEM \/ LIVE MODEL/);
- assert.match(home,/data-hero-state="strategy"/);
- assert.match(home,/data-hero-state="experience"/);
- assert.match(home,/data-hero-state="technology"/);
- assert.match(home,/data-hero-tab="production"/);
- assert.match(home,/data-hero-terminal/);
- assert.doesNotMatch(home,/hero-image-card/);
- assert.doesNotMatch(home,/hero-proof/);
+ assert.match(home,/class="mx-heroBanner"/);
+ assert.match(home,/src="\/assets\/maxel-hero-banner\.webp"/);
+ assert.match(home,/id="maxel-hero-title"/);
+ assert.match(home,/Digital solutions built for real business needs\./);
+ assert.match(home,/Start a project/);
+ assert.match(home,/Explore capabilities/);
+ assert.doesNotMatch(home,/data-system-hero/);
+ assert.doesNotMatch(home,/data-hero-lab/);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/MAXEL VISUAL BANNER HERO V29/);
+ assert.match(css,/width:178%/);
 });
 
 test('homepage master direction connects work studio launch and motion systems',async()=>{
@@ -104,18 +109,11 @@ test('homepage master direction connects work studio launch and motion systems',
  assert.match(css,/--mx-page-progress/);
 });
 
-test('hero narrative explains the complete Maxel system journey',async()=>{
- const home=await readFile(join(dist,'index.html'),'utf8');
- assert.match(home,/mx-hero--v19/);
- assert.match(home,/BUSINESS NEED/);
- assert.match(home,/WORKING SYSTEM/);
- assert.match(home,/01[\s\S]*Understand/);
- assert.match(home,/02[\s\S]*Shape/);
- assert.match(home,/03[\s\S]*Connect/);
- assert.match(home,/04[\s\S]*Ship/);
- assert.match(home,/data-hero-message/);
- assert.match(home,/data-hero-narrative/);
- assert.match(home,/data-hero-telemetry|mx-lab__telemetry/);
+test('hero banner keeps desktop artwork and switches to live copy plus artwork crop on small screens',async()=>{
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/\.mx-heroBanner__semantic\{[\s\S]*clip-path:inset\(50%\)/);
+ assert.match(css,/@media\(max-width:900px\)[\s\S]*\.mx-heroBanner__semantic\{[\s\S]*position:static/);
+ assert.match(css,/@media\(max-width:900px\)[\s\S]*\.mx-heroBanner__media img\{[\s\S]*margin-left:-78%/);
 });
 
 test('selected work uses a scrollable project selector before opening EDUFY',async()=>{
