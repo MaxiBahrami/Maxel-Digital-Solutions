@@ -6945,7 +6945,7 @@ button.mx-worknav__card.is-selected{
     padding-right:5vw;
   }
   .mx-worknav__card{
-    flex-basis:min(86vw,430px);
+    flex-basis:min(90vw,430px);
     min-height:330px;
     padding:14px;
     border-radius:15px;
@@ -7540,5 +7540,16 @@ button.mx-worknav__card.is-selected{
   .mx-work2__closeCase,
   .mx-work2__closeCase b{
     transition:none!important;
+  }
+}
+
+
+/* Mobile selected-work gutter correction V25 */
+@media(max-width:760px){
+  .mx-worknav__viewport{
+    scroll-padding-left:0;
+  }
+  .mx-worknav__card{
+    flex-basis:min(90vw,430px);
   }
 }
