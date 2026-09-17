@@ -82,7 +82,9 @@ function shell(page,content){
 function rewriteLinks(html){return html.replace(/\b(href|src)="(\/[^" ]*)"/g,(_,attr,url)=>{if(url.startsWith('//'))throw new Error('Protocol-relative assets are not supported');let [path,...query]=url.split('?');if(path==='/maxel-sculpture.webp')path='/assets/maxel-sculpture.webp';if(routes.some(r=>r.path===path+'/'))path+='/';return `${attr}="${href(path)}${query.length?'?'+query.join('?'):''}"`;});}
 await rm(out,{recursive:true,force:true});await mkdir(join(out,'assets'),{recursive:true});
 for(const file of await readdir(join(root,'src/assets'))){const source=join(root,'src/assets',file);if(file.endsWith('.base64'))await writeFile(join(out,'assets',file.slice(0,-7)),Buffer.from(await readFile(source,'utf8'),'base64'));else await copyFile(source,join(out,'assets',file));}
-await copyFile(join(root,'src/styles.css'),join(out,'assets/styles.css'));
+const baseStyles=await readFile(join(root,'src/styles.css'),'utf8');
+const selectedWorkIntro=await readFile(join(root,'src/selected-work-intro.css'),'utf8');
+await writeFile(join(out,'assets/styles.css'),baseStyles+'\n\n'+selectedWorkIntro);
 await copyFile(join(root,'src/main.js'),join(out,'assets/main.js'));
 if(serverMode)await copyFile(join(root,'src/contact-server.js'),join(out,'assets/contact-server.js'));
 for(const page of routes){let source=page.source;if(serverMode&&page.path==='/contact/')source='contact-server.html';if(serverMode&&page.path==='/privacy/')source='privacy-server.html';let content=await readFile(join(root,'src/pages',source),'utf8');content=content.replaceAll('{{CONTACT_EMAIL}}',esc(config.contactEmail)).replaceAll('{{PERSONAL_WEBSITE}}',esc(config.personalWebsite));const folder=join(out,page.path);await mkdir(folder,{recursive:true});await writeFile(join(folder,'index.html'),shell(page,rewriteLinks(content)));}
