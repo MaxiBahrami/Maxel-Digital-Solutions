@@ -1,10 +1,18 @@
 /* =========================================================
-   SELECTED WORK EDITORIAL INTRO V32
+   SELECTED WORK EDITORIAL INTRO V33
    A tighter, case-first introduction that gives visual priority
-   to the project rail underneath.
+   to the project rail underneath without creating page overflow.
    ========================================================= */
+.mx-work2{
+  /* The rail owns its own horizontal scroller. Decorative intro motion
+     must never enlarge the document viewport on mobile Safari. */
+  overflow-x:clip;
+}
 .mx-work2__head{
   position:relative;
+  min-width:0;
+  max-width:100%;
+  overflow:hidden;
   grid-template-columns:minmax(0,1fr) minmax(360px,560px);
   gap:48px;
   align-items:end;
@@ -34,6 +42,7 @@
   transform:translateX(-115%);
   animation:mxWorkIntroSignal 5.6s cubic-bezier(.2,.75,.2,1) infinite;
   pointer-events:none;
+  will-change:transform,opacity;
 }
 .mx-work2__head>div{
   min-width:0;
@@ -107,13 +116,13 @@
     font-size:6.7px;
   }
   .mx-work2__head h2{
-    max-width:360px;
+    max-width:100%;
     margin-top:10px;
     font-size:clamp(43px,12.5vw,54px);
     line-height:.94;
   }
   .mx-work2__head>p{
-    max-width:390px;
+    max-width:100%;
     color:#8f9992;
     font-size:12.5px;
     line-height:1.52;
