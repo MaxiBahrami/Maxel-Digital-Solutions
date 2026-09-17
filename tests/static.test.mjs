@@ -173,11 +173,14 @@ test('selected EDUFY case can be closed after it is opened',async()=>{
  assert.match(css,/SELECTED CASE CLOSE CONTROL V24/);
 });
 
-test('selected-work rail uses one responsive edge system for every card and the rail end',async()=>{
+test('selected-work rail keeps a real end gutter and compact closed-section spacing',async()=>{
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
- assert.match(css,/SELECTED WORK UNIFIED EDGE SYSTEM V27/);
+ assert.match(css,/SELECTED WORK RAIL END \+ SECTION SPACING V28/);
  assert.match(css,/--work-rail-edge:max\(5vw,calc\(\(100vw - var\(--mx-max\)\)\/2\)\)/);
- assert.match(css,/padding-right:var\(--work-rail-edge\)/);
+ assert.match(css,/\.mx-worknav__track:after[\s\S]*flex:0 0 var\(--work-rail-edge\)/);
+ assert.match(css,/\.mx-work2\.is-selector-enhanced\{[\s\S]*padding-bottom:44px/);
+ assert.match(css,/\.mx-work2\.is-selector-enhanced \.mx-worknav\{[\s\S]*margin-bottom:0/);
  assert.match(css,/--work-card-width:min\(90vw,430px\)/);
- assert.doesNotMatch(css,/Mobile selected-work gutter correction V25/);
+ const js=await readFile(join(dist,'assets/main.js'),'utf8');
+ assert.match(js,/classList\.toggle\('has-open-case',open\)/);
 });

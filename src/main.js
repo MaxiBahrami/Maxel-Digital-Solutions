@@ -403,6 +403,7 @@ if(typeof document.querySelectorAll==='function'){
       const closeButtons=Array.from(showcase.querySelectorAll('[data-work-close]'));
 
       const setProjectOpen=(button,open,shouldScroll=true)=>{
+        showcase.classList.toggle('has-open-case',open);
         projectButtons.forEach(item=>{
           const selected=item===button&&open;
           item.classList.toggle('is-selected',selected);
