@@ -6535,6 +6535,8 @@ body.home-page .motion-section.is-visible .motion-item:nth-child(3){transition-d
    Scrollable, future-ready case selector above the case detail.
    ========================================================= */
 .mx-worknav{
+  --work-rail-edge:max(5vw,calc((100vw - var(--mx-max))/2));
+  --work-card-width:clamp(330px,48vw,650px);
   margin:0 0 56px;
   padding:14px 0 0;
   border-top:1px solid #2d3630;
@@ -6588,11 +6590,11 @@ body.home-page .motion-section.is-visible .motion-item:nth-child(3){transition-d
   opacity:.26;
 }
 .mx-worknav__viewport{
-  width:calc(100% + max(5%,calc((100vw - var(--mx-max))/2)));
-  margin-right:calc(max(5%,calc((100vw - var(--mx-max))/2)) * -1);
+  width:calc(100% + var(--work-rail-edge));
+  margin-right:calc(var(--work-rail-edge) * -1);
   overflow-x:auto;
   overflow-y:hidden;
-  padding:6px max(5%,calc((100vw - var(--mx-max))/2)) 24px 0;
+  padding:6px 0 24px 0;
   scroll-snap-type:x mandatory;
   scroll-padding-left:0;
   overscroll-behavior-x:contain;
@@ -6610,13 +6612,15 @@ body.home-page .motion-section.is-visible .motion-item:nth-child(3){transition-d
   display:flex;
   gap:16px;
   width:max-content;
+  padding-right:var(--work-rail-edge);
+  box-sizing:content-box;
   perspective:1200px;
 }
 .mx-worknav__card{
   --work-card-x:0;
   --work-card-scale:1;
   position:relative;
-  flex:0 0 clamp(330px,48vw,650px);
+  flex:0 0 var(--work-card-width);
   min-height:360px;
   padding:18px;
   display:flex;
@@ -6937,15 +6941,11 @@ button.mx-worknav__card.is-selected{
 
 @media(max-width:760px){
   .mx-worknav{
+    --work-rail-edge:5vw;
+    --work-card-width:min(90vw,430px);
     margin-bottom:38px;
   }
-  .mx-worknav__viewport{
-    width:calc(100% + 5vw);
-    margin-right:-5vw;
-    padding-right:5vw;
-  }
   .mx-worknav__card{
-    flex-basis:min(90vw,430px);
     min-height:330px;
     padding:14px;
     border-radius:15px;
@@ -7544,12 +7544,16 @@ button.mx-worknav__card.is-selected{
 }
 
 
-/* Mobile selected-work gutter correction V25 */
-@media(max-width:760px){
-  .mx-worknav__viewport{
-    scroll-padding-left:0;
-  }
-  .mx-worknav__card{
-    flex-basis:min(90vw,430px);
-  }
+
+
+/* =========================================================
+   SELECTED WORK UNIFIED EDGE SYSTEM V27
+   One rail edge variable controls the viewport bleed, every
+   project card width, and the terminal space after the last card.
+   ========================================================= */
+.mx-worknav__viewport{
+  scroll-padding-inline:0 var(--work-rail-edge);
+}
+.mx-worknav__track{
+  padding-inline-end:var(--work-rail-edge);
 }
