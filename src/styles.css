@@ -7464,3 +7464,81 @@ button.mx-worknav__card.is-selected{
     transition:none!important;
   }
 }
+
+
+/* =========================================================
+   SELECTED CASE CLOSE CONTROL V24
+   Opening a case is reversible from both the project card
+   and the expanded product window.
+   ========================================================= */
+.mx-work2__windowActions{
+  display:flex!important;
+  align-items:center;
+  gap:14px;
+}
+.mx-work2__status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.mx-work2__closeCase{
+  min-height:30px;
+  padding:0 9px;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid #354039;
+  border-radius:7px;
+  background:#141a16;
+  color:#9ca69f;
+  font-size:7px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:
+    border-color .2s ease,
+    color .2s ease,
+    background .2s ease,
+    transform .2s ease;
+}
+.mx-work2__closeCase b{
+  color:var(--mx-accent);
+  font-size:11px;
+  font-weight:500;
+  transition:transform .22s ease;
+}
+.mx-work2__closeCase:hover{
+  transform:translateY(-1px);
+  border-color:#728449;
+  background:#1b231d;
+  color:#eef2ed;
+}
+.mx-work2__closeCase:hover b{
+  transform:translateY(-2px);
+}
+.mx-worknav__card.is-selected .mx-worknav__open i{
+  transform:translateY(-2px)!important;
+}
+
+@media(max-width:760px){
+  .mx-work2__windowActions{
+    gap:7px;
+  }
+  .mx-work2__status{
+    display:none;
+  }
+  .mx-work2__closeCase{
+    min-height:28px;
+    padding:0 8px;
+    border-radius:6px;
+    font-size:5.8px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mx-work2__closeCase,
+  .mx-work2__closeCase b{
+    transition:none!important;
+  }
+}

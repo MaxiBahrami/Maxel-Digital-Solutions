@@ -400,9 +400,24 @@ if(typeof document.querySelectorAll==='function'){
         scrollCard(current+1);
       });
 
-      projectButtons.forEach(button=>button.addEventListener('click',()=>{
-        projectButtons.forEach(item=>item.classList.toggle('is-selected',item===button));
-        if(detailWrap){
+      const closeButtons=Array.from(showcase.querySelectorAll('[data-work-close]'));
+
+      const setProjectOpen=(button,open,shouldScroll=true)=>{
+        projectButtons.forEach(item=>{
+          const selected=item===button&&open;
+          item.classList.toggle('is-selected',selected);
+          item.setAttribute('aria-expanded',String(selected));
+          const action=item.querySelector('.mx-worknav__open');
+          if(action){
+            action.firstChild.textContent=selected?'Close case ':'Open case ';
+            const arrow=action.querySelector('i');
+            if(arrow)arrow.textContent=selected?'↑':'↓';
+          }
+        });
+
+        if(!detailWrap)return;
+
+        if(open){
           detailWrap.removeAttribute('aria-hidden');
           if('inert' in detailWrap)detailWrap.inert=false;
           if(typeof requestAnimationFrame==='function'){
@@ -410,10 +425,35 @@ if(typeof document.querySelectorAll==='function'){
           }else{
             detailWrap.classList.add('is-open');
           }
-          if(typeof detailWrap.scrollIntoView==='function'){
+          if(shouldScroll&&typeof detailWrap.scrollIntoView==='function'){
             setTimeout(()=>detailWrap.scrollIntoView({behavior:'smooth',block:'start'}),120);
           }
+        }else{
+          detailWrap.classList.remove('is-open');
+          detailWrap.setAttribute('aria-hidden','true');
+          if('inert' in detailWrap)detailWrap.inert=true;
+
+          const about=showcase.querySelector('[data-edufy-about]');
+          const aboutToggle=showcase.querySelector('[data-edufy-about-toggle]');
+          const aboutPanel=showcase.querySelector('[data-edufy-about-panel]');
+          if(about)about.classList.remove('is-open');
+          if(aboutToggle)aboutToggle.setAttribute('aria-expanded','false');
+          if(aboutPanel)aboutPanel.setAttribute('aria-hidden','true');
+
+          if(shouldScroll&&button&&typeof button.scrollIntoView==='function'){
+            setTimeout(()=>button.scrollIntoView({behavior:'smooth',block:'center',inline:'nearest'}),180);
+          }
         }
+      };
+
+      projectButtons.forEach(button=>button.addEventListener('click',()=>{
+        const isOpen=button.getAttribute('aria-expanded')==='true';
+        setProjectOpen(button,!isOpen,true);
+      }));
+
+      closeButtons.forEach(closeButton=>closeButton.addEventListener('click',()=>{
+        const activeButton=projectButtons.find(button=>button.getAttribute('aria-expanded')==='true')||projectButtons[0];
+        setProjectOpen(activeButton,false,true);
       }));
 
       let dragging=false;

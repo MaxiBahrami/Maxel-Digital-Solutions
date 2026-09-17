@@ -159,3 +159,16 @@ test('EDUFY mobile preview avoids duplicate intro and keeps summary on demand',a
  assert.match(css,/\.mx-work2__side\{\s*display:none;/);
  assert.match(css,/grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/);
 });
+
+test('selected EDUFY case can be closed after it is opened',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/data-project-select="edufy"[^>]*aria-expanded="false"/);
+ assert.match(home,/data-work-close/);
+ assert.match(home,/aria-label="Close EDUFY case"/);
+ const js=await readFile(join(dist,'assets/main.js'),'utf8');
+ assert.match(js,/setProjectOpen/);
+ assert.match(js,/Close case/);
+ assert.match(js,/classList\.remove\('is-open'\)/);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/SELECTED CASE CLOSE CONTROL V24/);
+});
