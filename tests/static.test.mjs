@@ -79,19 +79,20 @@ test('services sticky visual is not trapped by section overflow',async()=>{
  assert.match(css,/\.mx-ss__intro\{\s*overflow:clip;/);
 });
 
-test('homepage hero uses the approved visual banner with live accessible copy',async()=>{
+test('homepage hero keeps the original live copy and uses the approved banner only as artwork',async()=>{
  const home=await readFile(join(dist,'index.html'),'utf8');
- assert.match(home,/class="mx-heroBanner"/);
- assert.match(home,/src="\/assets\/maxel-hero-banner\.webp"/);
- assert.match(home,/id="maxel-hero-title"/);
+ assert.match(home,/class="mx-hero mx-hero--v19"/);
+ assert.match(home,/INDEPENDENT DIGITAL STUDIO · SWEDEN \/ WORLDWIDE/);
  assert.match(home,/Digital solutions built for real business needs\./);
+ assert.match(home,/Strategy, product design and engineering for websites, products and connected digital systems\./);
  assert.match(home,/Start a project/);
  assert.match(home,/Explore capabilities/);
- assert.doesNotMatch(home,/data-system-hero/);
+ assert.match(home,/class="mx-heroPicture"/);
+ assert.match(home,/src="\/assets\/maxel-hero-banner\.webp"/);
+ assert.doesNotMatch(home,/class="mx-heroBanner"/);
  assert.doesNotMatch(home,/data-hero-lab/);
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
- assert.match(css,/MAXEL VISUAL BANNER HERO V29/);
- assert.match(css,/width:178%/);
+ assert.match(css,/MAXEL HERO PICTURE V30/);
 });
 
 test('homepage master direction connects work studio launch and motion systems',async()=>{
@@ -109,11 +110,10 @@ test('homepage master direction connects work studio launch and motion systems',
  assert.match(css,/--mx-page-progress/);
 });
 
-test('hero banner keeps desktop artwork and switches to live copy plus artwork crop on small screens',async()=>{
+test('hero picture crops the approved banner toward its digital visual area',async()=>{
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
- assert.match(css,/\.mx-heroBanner__semantic\{[\s\S]*clip-path:inset\(50%\)/);
- assert.match(css,/@media\(max-width:900px\)[\s\S]*\.mx-heroBanner__semantic\{[\s\S]*position:static/);
- assert.match(css,/@media\(max-width:900px\)[\s\S]*\.mx-heroBanner__media img\{[\s\S]*margin-left:-78%/);
+ assert.match(css,/\.mx-heroPicture__frame img\{[\s\S]*width:176%[\s\S]*margin-left:-76%/);
+ assert.match(css,/@media\(max-width:640px\)[\s\S]*\.mx-heroPicture__frame img\{[\s\S]*width:182%[\s\S]*margin-left:-82%/);
 });
 
 test('selected work uses a scrollable project selector before opening EDUFY',async()=>{
