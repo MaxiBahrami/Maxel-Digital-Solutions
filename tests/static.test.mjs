@@ -173,8 +173,11 @@ test('selected EDUFY case can be closed after it is opened',async()=>{
  assert.match(css,/SELECTED CASE CLOSE CONTROL V24/);
 });
 
-test('mobile selected-work card uses balanced page gutters',async()=>{
+test('selected-work rail uses one responsive edge system for every card and the rail end',async()=>{
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
- assert.match(css,/Mobile selected-work gutter correction V25/);
- assert.match(css,/flex-basis:min\(90vw,430px\)/);
+ assert.match(css,/SELECTED WORK UNIFIED EDGE SYSTEM V27/);
+ assert.match(css,/--work-rail-edge:max\(5vw,calc\(\(100vw - var\(--mx-max\)\)\/2\)\)/);
+ assert.match(css,/padding-right:var\(--work-rail-edge\)/);
+ assert.match(css,/--work-card-width:min\(90vw,430px\)/);
+ assert.doesNotMatch(css,/Mobile selected-work gutter correction V25/);
 });
