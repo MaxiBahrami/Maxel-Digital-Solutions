@@ -81,7 +81,18 @@ function shell(page,content){
 }
 function rewriteLinks(html){return html.replace(/\b(href|src)="(\/[^" ]*)"/g,(_,attr,url)=>{if(url.startsWith('//'))throw new Error('Protocol-relative assets are not supported');let [path,...query]=url.split('?');if(path==='/maxel-sculpture.webp')path='/assets/maxel-sculpture.webp';if(routes.some(r=>r.path===path+'/'))path+='/';return `${attr}="${href(path)}${query.length?'?'+query.join('?'):''}"`;});}
 await rm(out,{recursive:true,force:true});await mkdir(join(out,'assets'),{recursive:true});
-for(const file of await readdir(join(root,'src/assets'))){const source=join(root,'src/assets',file);if(file.endsWith('.base64'))await writeFile(join(out,'assets',file.slice(0,-7)),Buffer.from(await readFile(source,'utf8'),'base64'));else await copyFile(source,join(out,'assets',file));}
+const assetFiles=await readdir(join(root,'src/assets'));
+const heroBannerParts=assetFiles.filter(file=>/^maxel-hero-banner\.part\d+$/.test(file)).sort();
+if(heroBannerParts.length){
+ const encodedParts=await Promise.all(heroBannerParts.map(file=>readFile(join(root,'src/assets',file),'utf8')));
+ await writeFile(join(out,'assets','maxel-hero-banner.webp'),Buffer.from(encodedParts.join(''),'base64'));
+}
+for(const file of assetFiles){
+ if(/^maxel-hero-banner\.part\d+$/.test(file))continue;
+ const source=join(root,'src/assets',file);
+ if(file.endsWith('.base64'))await writeFile(join(out,'assets',file.slice(0,-7)),Buffer.from(await readFile(source,'utf8'),'base64'));
+ else await copyFile(source,join(out,'assets',file));
+}
 await copyFile(join(root,'src/styles.css'),join(out,'assets/styles.css'));
 await copyFile(join(root,'src/main.js'),join(out,'assets/main.js'));
 if(serverMode)await copyFile(join(root,'src/contact-server.js'),join(out,'assets/contact-server.js'));
