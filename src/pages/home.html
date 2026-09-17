@@ -267,12 +267,90 @@
   <div class="mx-work2__head motion-item">
     <div>
       <span class="eyebrow">SELECTED WORK</span>
-      <h2>EDUFY</h2>
+      <h2>Choose a case.</h2>
     </div>
-    <p>One education product across student, teacher and administration experiences — with product direction, UI/UX and full-stack implementation developed together.</p>
+    <p>Explore selected work as product systems. Swipe or scroll through the case rail, then open a project to inspect the experience in more detail.</p>
   </div>
 
-  <div class="mx-work2__stage motion-item" data-work-state="student">
+  <div class="mx-worknav motion-item" data-work-selector>
+    <div class="mx-worknav__top">
+      <div>
+        <span>PROJECT INDEX</span>
+        <strong data-work-selector-count>01 / 03</strong>
+      </div>
+      <div class="mx-worknav__controls">
+        <button type="button" data-work-selector-prev aria-label="Previous project">←</button>
+        <button type="button" data-work-selector-next aria-label="Next project">→</button>
+      </div>
+    </div>
+
+    <div class="mx-worknav__viewport" data-work-selector-viewport>
+      <div class="mx-worknav__track" data-work-selector-track>
+        <button type="button" class="mx-worknav__card mx-worknav__card--edufy" data-project-select="edufy" aria-controls="edufy-case-detail">
+          <span class="mx-worknav__cardTop"><b>01 / CASE</b><i>ACTIVE DEVELOPMENT</i></span>
+          <span class="mx-worknav__preview" aria-hidden="true">
+            <span class="mx-worknav__previewSide"><b>E</b><i></i><i></i><i></i></span>
+            <span class="mx-worknav__previewMain">
+              <small>EDUCATION PRODUCT SYSTEM</small>
+              <strong>edufy</strong>
+              <span><i></i><i></i><i></i></span>
+            </span>
+          </span>
+          <span class="mx-worknav__cardCopy">
+            <span>
+              <small>PRODUCT · UI/UX · FULL-STACK</small>
+              <strong>EDUFY</strong>
+            </span>
+            <b class="mx-worknav__open">Open case <i aria-hidden="true">↓</i></b>
+          </span>
+        </button>
+
+        <article class="mx-worknav__card mx-worknav__card--reserved" aria-disabled="true">
+          <span class="mx-worknav__cardTop"><b>02 / CASE</b><i>RESERVED</i></span>
+          <span class="mx-worknav__reservedVisual" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <b>02</b>
+          </span>
+          <span class="mx-worknav__cardCopy">
+            <span>
+              <small>FUTURE SELECTED WORK</small>
+              <strong>Next case</strong>
+            </span>
+            <b class="mx-worknav__quiet">Added when ready to publish.</b>
+          </span>
+        </article>
+
+        <article class="mx-worknav__card mx-worknav__card--reserved mx-worknav__card--reserved-alt" aria-disabled="true">
+          <span class="mx-worknav__cardTop"><b>03 / CASE</b><i>RESERVED</i></span>
+          <span class="mx-worknav__reservedVisual" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <b>03</b>
+          </span>
+          <span class="mx-worknav__cardCopy">
+            <span>
+              <small>FUTURE SELECTED WORK</small>
+              <strong>Future case</strong>
+            </span>
+            <b class="mx-worknav__quiet">Reserved for finished work.</b>
+          </span>
+        </article>
+      </div>
+    </div>
+
+    <div class="mx-worknav__progress" aria-hidden="true"><i data-work-selector-progress></i></div>
+    <p class="mx-worknav__hint">Drag, swipe or use the arrows to explore.</p>
+  </div>
+
+  <div class="mx-work2__detailWrap motion-item" data-work-detail-wrap>
+    <div class="mx-work2__selectedTitle">
+      <span>SELECTED CASE · 01</span>
+      <div>
+        <h3>EDUFY</h3>
+        <p>Education platform in active development across student, teacher and administration experiences.</p>
+      </div>
+    </div>
+
+    <div class="mx-work2__stage" id="edufy-case-detail" data-work-project-panel="edufy" data-work-state="student">
     <div class="mx-work2__window">
       <div class="mx-work2__windowbar">
         <span>EDUFY / PRODUCT SYSTEM</span>
@@ -350,6 +428,7 @@
       </dl>
       <a href="/work/edufy/" class="mx-work2__link">Explore the case <span aria-hidden="true">↗</span></a>
     </aside>
+    </div>
   </div>
 </section>
 

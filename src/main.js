@@ -324,23 +324,124 @@ if(typeof document.querySelectorAll==='function'){
     const title=showcase.querySelector('[data-work-title]');
     const kicker=showcase.querySelector('[data-work-kicker]');
     const index=showcase.querySelector('[data-work-index]');
-    if(!stage||!tabs.length)return;
-    const copy={
-      student:['STUDENT EXPERIENCE','Learning that feels clear.','01 / 03'],
-      teacher:['TEACHER EXPERIENCE','Teaching with less friction.','02 / 03'],
-      admin:['ADMIN EXPERIENCE','Operations in one place.','03 / 03']
-    };
-    const setWork=state=>{
-      stage.dataset.workState=state;
-      tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.workTab===state));
-      if(copy[state]){
-        if(kicker)kicker.textContent=copy[state][0];
-        if(title)title.textContent=copy[state][1];
-        if(index)index.textContent=copy[state][2];
+    const detailWrap=showcase.querySelector('[data-work-detail-wrap]');
+    const selector=showcase.querySelector('[data-work-selector]');
+    const viewport=showcase.querySelector('[data-work-selector-viewport]');
+    const track=showcase.querySelector('[data-work-selector-track]');
+    const cards=Array.from(showcase.querySelectorAll('.mx-worknav__card'));
+    const projectButtons=Array.from(showcase.querySelectorAll('[data-project-select]'));
+    const prev=showcase.querySelector('[data-work-selector-prev]');
+    const next=showcase.querySelector('[data-work-selector-next]');
+    const count=showcase.querySelector('[data-work-selector-count]');
+    const progress=showcase.querySelector('[data-work-selector-progress]');
+
+    if(stage&&tabs.length){
+      const copy={
+        student:['STUDENT EXPERIENCE','Learning that feels clear.','01 / 03'],
+        teacher:['TEACHER EXPERIENCE','Teaching with less friction.','02 / 03'],
+        admin:['ADMIN EXPERIENCE','Operations in one place.','03 / 03']
+      };
+      const setWork=state=>{
+        stage.dataset.workState=state;
+        tabs.forEach(tab=>tab.classList.toggle('is-active',tab.dataset.workTab===state));
+        if(copy[state]){
+          if(kicker)kicker.textContent=copy[state][0];
+          if(title)title.textContent=copy[state][1];
+          if(index)index.textContent=copy[state][2];
+        }
+      };
+      tabs.forEach(tab=>tab.addEventListener('click',()=>setWork(tab.dataset.workTab)));
+      setWork('student');
+    }
+
+    if(selector&&viewport&&track&&cards.length){
+      showcase.classList.add('is-selector-enhanced');
+      if(detailWrap){
+        detailWrap.classList.remove('is-open');
+        detailWrap.setAttribute('aria-hidden','true');
+        if('inert' in detailWrap)detailWrap.inert=true;
       }
-    };
-    tabs.forEach(tab=>tab.addEventListener('click',()=>setWork(tab.dataset.workTab)));
-    setWork('student');
+
+      const updateRail=()=>{
+        const max=Math.max(1,viewport.scrollWidth-viewport.clientWidth);
+        const ratio=Math.max(0,Math.min(1,viewport.scrollLeft/max));
+        if(progress)progress.style.transform='scaleX('+ratio+')';
+
+        const center=viewport.scrollLeft+(viewport.clientWidth/2);
+        let nearest=0;
+        let nearestDistance=Infinity;
+        cards.forEach((card,i)=>{
+          const cardCenter=card.offsetLeft+(card.offsetWidth/2);
+          const normalized=Math.max(-1,Math.min(1,(cardCenter-center)/(viewport.clientWidth*.72)));
+          const distance=Math.abs(normalized);
+          if(distance<nearestDistance){nearestDistance=distance;nearest=i;}
+          card.style.setProperty('--work-card-x',String(normalized));
+          card.style.setProperty('--work-card-scale',String(1-(distance*.055)));
+          card.classList.toggle('is-near',distance<.34);
+        });
+        if(count)count.textContent=String(nearest+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+        if(prev)prev.disabled=viewport.scrollLeft<=4;
+        if(next)next.disabled=viewport.scrollLeft>=max-4;
+      };
+
+      const scrollCard=index=>{
+        const card=cards[Math.max(0,Math.min(cards.length-1,index))];
+        if(card)viewport.scrollTo({left:Math.max(0,card.offsetLeft-18),behavior:'smooth'});
+      };
+
+      if(prev)prev.addEventListener('click',()=>{
+        const width=cards[0]?.offsetWidth||viewport.clientWidth*.75;
+        const current=Math.round(viewport.scrollLeft/(width+16));
+        scrollCard(current-1);
+      });
+      if(next)next.addEventListener('click',()=>{
+        const width=cards[0]?.offsetWidth||viewport.clientWidth*.75;
+        const current=Math.round(viewport.scrollLeft/(width+16));
+        scrollCard(current+1);
+      });
+
+      projectButtons.forEach(button=>button.addEventListener('click',()=>{
+        projectButtons.forEach(item=>item.classList.toggle('is-selected',item===button));
+        if(detailWrap){
+          detailWrap.removeAttribute('aria-hidden');
+          if('inert' in detailWrap)detailWrap.inert=false;
+          if(typeof requestAnimationFrame==='function'){
+            requestAnimationFrame(()=>detailWrap.classList.add('is-open'));
+          }else{
+            detailWrap.classList.add('is-open');
+          }
+          if(typeof detailWrap.scrollIntoView==='function'){
+            setTimeout(()=>detailWrap.scrollIntoView({behavior:'smooth',block:'start'}),120);
+          }
+        }
+      }));
+
+      let dragging=false;
+      let startX=0;
+      let startScroll=0;
+      viewport.addEventListener('pointerdown',event=>{
+        if(event.pointerType==='mouse'){
+          dragging=true;
+          startX=event.clientX;
+          startScroll=viewport.scrollLeft;
+          viewport.classList.add('is-dragging');
+          if(typeof viewport.setPointerCapture==='function')viewport.setPointerCapture(event.pointerId);
+        }
+      });
+      viewport.addEventListener('pointermove',event=>{
+        if(!dragging)return;
+        viewport.scrollLeft=startScroll-(event.clientX-startX);
+      });
+      const endDrag=()=>{
+        dragging=false;
+        viewport.classList.remove('is-dragging');
+      };
+      viewport.addEventListener('pointerup',endDrag);
+      viewport.addEventListener('pointercancel',endDrag);
+      viewport.addEventListener('scroll',updateRail,{passive:true});
+      if(typeof window!=='undefined'&&typeof window.addEventListener==='function')window.addEventListener('resize',updateRail,{passive:true});
+      updateRail();
+    }
   });
 }
 
