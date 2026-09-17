@@ -172,3 +172,9 @@ test('selected EDUFY case can be closed after it is opened',async()=>{
  const css=await readFile(join(dist,'assets/styles.css'),'utf8');
  assert.match(css,/SELECTED CASE CLOSE CONTROL V24/);
 });
+
+test('mobile selected-work card uses balanced page gutters',async()=>{
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/Mobile selected-work gutter correction V25/);
+ assert.match(css,/flex-basis:min\(90vw,430px\)/);
+});
