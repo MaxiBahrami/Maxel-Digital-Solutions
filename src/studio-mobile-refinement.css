@@ -1,0 +1,98 @@
+/* =========================================================
+   ABOUT MAXEL MOBILE REFINEMENT V34
+   Keep the existing orbital animation while improving mobile
+   header clearance, hierarchy and vertical rhythm.
+   ========================================================= */
+@media(max-width:640px){
+  .mx-studio{
+    padding:94px 5% 58px;
+    gap:24px;
+    scroll-margin-top:78px;
+  }
+
+  .mx-studio__statement{
+    min-width:0;
+  }
+
+  .mx-studio__statement .eyebrow{
+    display:block;
+    position:relative;
+    z-index:1;
+    margin:0 0 14px;
+    line-height:1.4;
+  }
+
+  .mx-studio__statement h2{
+    max-width:355px;
+    margin:0 0 22px;
+    font-size:clamp(37px,10.2vw,42px);
+    line-height:.97;
+    letter-spacing:-.055em;
+  }
+
+  .mx-studio__link{
+    margin-top:0;
+  }
+
+  .mx-studio__system{
+    width:min(100%,304px);
+    margin-top:4px;
+    justify-self:center;
+  }
+
+  .mx-studio__core{
+    width:64px;
+    height:64px;
+    margin:-32px 0 0 -32px;
+    border-radius:15px;
+    font-size:28px;
+  }
+
+  .mx-studio__ring--1{
+    width:168px;
+    height:168px;
+    margin:-84px 0 0 -84px;
+  }
+
+  .mx-studio__ring--2{
+    width:276px;
+    height:276px;
+    margin:-138px 0 0 -138px;
+  }
+
+  .mx-studio__signal{
+    padding:7px 10px;
+    font-size:7px;
+    white-space:nowrap;
+  }
+
+  .mx-studio__signal--1{left:0;top:22%}
+  .mx-studio__signal--2{right:0;top:27%}
+  .mx-studio__signal--3{left:0;bottom:20%}
+  .mx-studio__signal--4{right:0;bottom:16%}
+
+  .mx-studio__copy{
+    margin-top:2px;
+  }
+}
+
+@media(max-width:380px){
+  .mx-studio{
+    padding-top:88px;
+  }
+
+  .mx-studio__statement h2{
+    max-width:330px;
+    font-size:36px;
+  }
+
+  .mx-studio__system{
+    width:min(100%,286px);
+  }
+
+  .mx-studio__ring--2{
+    width:260px;
+    height:260px;
+    margin:-130px 0 0 -130px;
+  }
+}
