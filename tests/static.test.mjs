@@ -132,18 +132,3 @@ test('selected work uses a scrollable project selector before opening EDUFY',asy
  assert.match(css,/SELECTED WORK PROJECT RAIL V20/);
  assert.match(css,/scroll-snap-type:x mandatory/);
 });
-
-test('EDUFY project information uses progressive disclosure',async()=>{
- const home=await readFile(join(dist,'index.html'),'utf8');
- assert.match(home,/data-edufy-info/);
- assert.match(home,/data-edufy-info-toggle/);
- assert.match(home,/aria-controls="edufy-project-info"/);
- assert.match(home,/id="edufy-project-info"/);
- assert.match(home,/WANT TO KNOW MORE\?/);
- assert.match(home,/Project details/);
- assert.match(home,/Explore the full case/);
- const css=await readFile(join(dist,'assets/styles.css'),'utf8');
- assert.match(css,/EDUFY PROGRESSIVE DISCLOSURE V21/);
- assert.match(css,/grid-template-rows:0fr/);
- assert.match(css,/is-info-open/);
-});

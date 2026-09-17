@@ -445,29 +445,6 @@ if(typeof document.querySelectorAll==='function'){
   });
 }
 
-if(typeof document.querySelectorAll==='function'){
-  const edufyInfoBlocks=document.querySelectorAll('[data-edufy-info]');
-  edufyInfoBlocks.forEach(block=>{
-    const toggle=block.querySelector('[data-edufy-info-toggle]');
-    const panel=block.querySelector('[data-edufy-info-panel]');
-    if(!toggle||!panel)return;
-
-    const setOpen=open=>{
-      block.classList.toggle('is-info-open',open);
-      toggle.setAttribute('aria-expanded',String(open));
-      if(open){
-        panel.removeAttribute('aria-hidden');
-      }else{
-        panel.setAttribute('aria-hidden','true');
-      }
-    };
-
-    toggle.addEventListener('click',()=>setOpen(toggle.getAttribute('aria-expanded')!=='true'));
-    setOpen(false);
-  });
-}
-
-
 if(typeof window!=='undefined'&&typeof document!=='undefined'){
   const root=document.documentElement;
   const header=document.querySelector?document.querySelector('.site-header'):null;
