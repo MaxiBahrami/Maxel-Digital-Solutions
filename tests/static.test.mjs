@@ -132,3 +132,18 @@ test('selected work uses a scrollable project selector before opening EDUFY',asy
  assert.match(css,/SELECTED WORK PROJECT RAIL V20/);
  assert.match(css,/scroll-snap-type:x mandatory/);
 });
+
+test('EDUFY case context is integrated into the product window and revealed on demand',async()=>{
+ const home=await readFile(join(dist,'index.html'),'utf8');
+ assert.match(home,/data-edufy-about/);
+ assert.match(home,/data-edufy-about-toggle/);
+ assert.match(home,/aria-controls="edufy-about-panel"/);
+ assert.match(home,/id="edufy-about-panel"/);
+ assert.match(home,/About this project/);
+ assert.match(home,/One product\.<br>Three user realities\./);
+ assert.match(home,/Explore the full case/);
+ assert.doesNotMatch(home,/<aside class="mx-work2__copy">/);
+ const css=await readFile(join(dist,'assets/styles.css'),'utf8');
+ assert.match(css,/EDUFY UNIFIED PROJECT DETAILS V22/);
+ assert.match(css,/\.mx-work2__about\.is-about-enhanced \.mx-work2__aboutReveal/);
+});
