@@ -6612,9 +6612,13 @@ body.home-page .motion-section.is-visible .motion-item:nth-child(3){transition-d
   display:flex;
   gap:16px;
   width:max-content;
-  padding-right:var(--work-rail-edge);
-  box-sizing:content-box;
   perspective:1200px;
+}
+.mx-worknav__track:after{
+  content:"";
+  flex:0 0 var(--work-rail-edge);
+  width:var(--work-rail-edge);
+  pointer-events:none;
 }
 .mx-worknav__card{
   --work-card-x:0;
@@ -7547,13 +7551,30 @@ button.mx-worknav__card.is-selected{
 
 
 /* =========================================================
-   SELECTED WORK UNIFIED EDGE SYSTEM V27
-   One rail edge variable controls the viewport bleed, every
-   project card width, and the terminal space after the last card.
+   SELECTED WORK RAIL END + SECTION SPACING V28
+   A real flex spacer guarantees end-gutter after the final card.
+   Closed mobile rails also use compact section spacing.
    ========================================================= */
 .mx-worknav__viewport{
   scroll-padding-inline:0 var(--work-rail-edge);
 }
-.mx-worknav__track{
-  padding-inline-end:var(--work-rail-edge);
+.mx-worknav__track:after{
+  content:"";
+  flex:0 0 var(--work-rail-edge);
+  width:var(--work-rail-edge);
+}
+
+@media(max-width:760px){
+  .mx-work2.is-selector-enhanced{
+    padding-bottom:44px;
+  }
+  .mx-work2.is-selector-enhanced .mx-worknav{
+    margin-bottom:0;
+  }
+  .mx-work2.is-selector-enhanced.has-open-case{
+    padding-bottom:64px;
+  }
+  .mx-work2.is-selector-enhanced.has-open-case .mx-worknav{
+    margin-bottom:28px;
+  }
 }
