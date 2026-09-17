@@ -286,7 +286,7 @@
 
     <div class="mx-worknav__viewport" data-work-selector-viewport>
       <div class="mx-worknav__track" data-work-selector-track>
-        <button type="button" class="mx-worknav__card mx-worknav__card--edufy" data-project-select="edufy" aria-controls="edufy-case-detail">
+        <button type="button" class="mx-worknav__card mx-worknav__card--edufy" data-project-select="edufy" aria-controls="edufy-case-detail" aria-expanded="false">
           <span class="mx-worknav__cardTop"><b>01 / CASE</b><i>ACTIVE DEVELOPMENT</i></span>
           <span class="mx-worknav__preview" aria-hidden="true">
             <span class="mx-worknav__previewSide"><b>E</b><i></i><i></i><i></i></span>
@@ -346,7 +346,12 @@
     <div class="mx-work2__window">
       <div class="mx-work2__windowbar">
         <span>EDUFY / PRODUCT SYSTEM</span>
-        <span><i></i> ACTIVE DEVELOPMENT</span>
+        <span class="mx-work2__windowActions">
+          <span class="mx-work2__status"><i></i> ACTIVE DEVELOPMENT</span>
+          <button type="button" class="mx-work2__closeCase" data-work-close aria-label="Close EDUFY case">
+            Close <b aria-hidden="true">↑</b>
+          </button>
+        </span>
       </div>
 
       <div class="mx-work2__product">
